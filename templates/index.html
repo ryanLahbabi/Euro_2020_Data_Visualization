@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euro 2020 Page</title>
+    <title>Wsh brozer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-color: #e0e0e0;
+            padding: 10px;
+        }
+        .content {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .box {
+            width: 45%;
+            padding: 20px;
+            margin: 10px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .box img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome to Euro 2020!</h1>
+        <p>Get ready to discover which country won the Euro and why they triumphed, backed by numbers and stats!</p>
+    </div>
+    <div class="content">
+        <div class="box">
+            <h2>Tournament Bracket</h2>
+            <img src="{{ bracket_image }}" alt="Tournament Bracket">
+        </div>
+        <div class="box">
+            <h2>Line-up Chart</h2>
+            <img src="{{ lineup_image }}" alt="Line-up Chart">
+        </div>
+    </div>
+</body>
+</html>
