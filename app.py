@@ -8,7 +8,6 @@ app = Flask(__name__)
 import violon_team
 import bar_chart_off_def
 import bar_dist_discip
-
 import radar_chart_goal_goalKeeping_team
 import radar_chart_off_def_team
 import radar_chart_dist_discip_team
@@ -23,13 +22,16 @@ server = app.server
 
 
 
-def get_team_figures(team_name):
-    # Cette fonction appelle une fonction générique qui renvoie les figures pour l'équipe spécifiée.
+def get_team_figures_off_def(team_name):
     # Vous devez adapter vos fonctions `get_fig` pour qu'elles acceptent un nom d'équipe.
     fig_offense, fig_defense = bar_chart_off_def.get_fig(team_name)
-    #fig_dist, fig_discip = bar_dist_discip.get_fig(team_name)
-    return fig_offense, fig_defense#, fig_dist, fig_discip
+    return fig_offense, fig_defense
 
+
+
+def get_team_figures_dist_discip(team_name):
+    fig_dist, fig_discip = bar_dist_discip.get_fig(team_name)
+    return fig_dist, fig_discip
 
 
 
@@ -135,7 +137,8 @@ app.layout = html.Div(
                    5) Goals Metrics: Goals scored, Goals scored in open play, Goals scored on penalty, Goals scored on corner, Goals scored on penalty phase, and Goals on set pieces\
                    6) Goal Keeping Metrics: Saves, Goals conceded, Own goals, Saves from penalty, Punches\
                     For each team,  each player's performance is compared in terms of all metrics. An option to select/deselect a metric is enabled by clicking on the legend.\
-                    The hovering utility gives the percentage of the metric. Hence, we can easily identify where weaknesses and strengths lie.")
+                    The hovering utility gives the percentage of the metric. Hence, we can easily identify where weaknesses and strengths lie."),
+
         ]),
         html.Div([
             dcc.Dropdown(
@@ -148,6 +151,17 @@ app.layout = html.Div(
             html.Div(id='team-graphs'), # Div pour insérer les graphiques
         ]),
 
+        html.Div([
+            dcc.Dropdown(
+                id='team-selector-2',
+                options=[
+                    {'label': team, 'value': team} for team in
+                    ['Italy', 'England', 'Spain', 'Belgium', 'Austria', 'Switzerland']
+                ],
+                value='Italy'  # Valeur par défaut
+            ),
+            html.Div(id='team-graphs-2'),  # Div pour insérer les graphiques
+        ]),
 
         
         #--------------DISTRIBUTION 
@@ -155,31 +169,15 @@ app.layout = html.Div(
 
         html.Div(style={'marginBottom': '60px'}, children=[
             html.H2('Distribution'),
-
-            '''
-            add_graph(id='barchart-distrib_italy', figure=fig_dist_Italy),
-            add_graph(id='barchart-distrib_england', figure=fig_dist_England),
-            add_graph(id='barchart-distrib_spain', figure=fig_dist_Spain),
-             add_graph(id='barchart-distrib_belgium', figure=fig_dist_Belgium),
-            add_graph(id='barchart-distrib_austria', figure=fig_dist_Austria),
-'''
             
             
         ]),
 
         #--------------- DISCIPLINARY ------------
-'''
         html.Div(style={'marginBottom': '60px'}, children=[
             html.H2('Disciplinary'),
-            add_graph(id='barchart-discip_italy', figure=fig_discip_Italy),
-            add_graph(id='barchart-discip_england', figure=fig_discip_England),
-            add_graph(id='barchart-discip_spain', figure=fig_discip_Spain),
-            add_graph(id='barchart-discip_belgium', figure=fig_discip_Belgium),
-            add_graph(id='barchart-discip_austria', figure=fig_discip_Austria),
-
         ]),
-''',
-        
+
 
     #--------------------------------------------------------------------TEAM EVALUATION : RADAR CHART--------------------------------------------------------------------------------------------
 
@@ -230,8 +228,6 @@ app.layout = html.Div(
                                 html.Td('When a player stops the ball from advancing, typically a shot or pass, by using their body.')
                             ]),
 
-
-
                         ])
                     ])
                 ])
@@ -242,12 +238,6 @@ app.layout = html.Div(
         
 
         # -------DEFENSE ----------"""
-
-
-
-
-
-
         html.Div(style={'marginBottom': '60px'}, children=[
             html.H2('Defensive Team analysis'),
             
@@ -292,12 +282,7 @@ app.layout = html.Div(
                     ])
 
                 ])
-
-
             ])
-
-
-
         ]),
 
         
@@ -354,12 +339,6 @@ app.layout = html.Div(
                                 html.Td('Free kicks on goal'),
                                 html.Td('Restarting play after a foul or other infringement has occurred with the intention of scoring a goal.')
                             ]),
-
-
-
-
-
-
 
                         ])
 
@@ -419,11 +398,6 @@ app.layout = html.Div(
                                 html.Td('Red cards'),
                                 html.Td('Send-off given to players for serious fouls or misconduct, resulting in their removal from the game')
                             ]),
-
-
-
-
-
 
                         ])
 
@@ -492,7 +466,7 @@ app.layout = html.Div(
                             ]),
 
 
-                            
+
 
                         ])
 
@@ -600,11 +574,21 @@ app.layout = html.Div(
 )
 
 def update_graphs(selected_team):
-    fig_offense, fig_defense = get_team_figures(selected_team)
-    print("je update")
+    fig_offense, fig_defense = get_team_figures_off_def(selected_team)
     return [
         add_graph(id='barchart-offense', figure=fig_offense),
-        add_graph(id='barchart-defense', figure=fig_defense)
+        add_graph(id='barchart-defense', figure=fig_defense),
+    ]
+
+@app.callback(
+    Output('team-graphs-2', 'children'),
+    [Input('team-selector-2', 'value')]
+)
+def update_graphs_2(selected_team):
+    fig_dist, fig_discip = get_team_figures_dist_discip(selected_team)
+    return [
+        add_graph(id='barchart-dist', figure=fig_dist),
+        add_graph(id='barchart-discip', figure=fig_discip)
     ]
 
 # Callback for Lineup Chart
