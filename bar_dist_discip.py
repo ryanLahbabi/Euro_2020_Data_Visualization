@@ -84,7 +84,7 @@ def create_plot(df, title, yaxis_title):
     return fig
 
 def get_fig(team_name):
-    df = load_data("./EURO_2020_DATA.xlsx")
+    df = load_data(file_path)
     df_prepped_distribution, df_prepped_disciplinary = prepare_data(df, team_name)
     fig_distribution = create_plot(df_prepped_distribution, f"{team_name} Distribution", "Distribution Metrics")
     fig_disciplanary = create_plot(df_prepped_disciplinary, f"{team_name} Disciplinary", "Disciplinary Metrics")
