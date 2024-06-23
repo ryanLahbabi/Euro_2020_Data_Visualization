@@ -35,15 +35,6 @@ categories_def= ['Recovered balls', "Tackles", 'Clearances', 'Blocks']
 # Filter the stats to keep only the required countries
 filtered_stats_df = sheet4_df[sheet4_df['TeamName'].isin(teams)]
 
-# Display the filtered dataframe
-print('-------------------------------------------')
-print('Filtered part 5:')
-
-
-# Display the filtered dataframe
-#print(filtered_stats_df)
-
-
 
 # Pivot the DataFrame to have stats as columns
 # Pivot the DataFrame to have stats as columns, each row identified by MatchID and PlayerSurname
@@ -59,9 +50,6 @@ final_df = pivot_df[required_columns]
 
 # Rename columns
 final_df.columns = ['MatchID', 'TeamName'] + required_stats
-
-# Display the final DataFrame
-#print(final_df)
 
 
 

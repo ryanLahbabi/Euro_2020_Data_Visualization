@@ -36,14 +36,6 @@ categories_goal_keep= ['Saves', 'Goals conceded', 'Own-goals', 'Saves on penalty
 # Filter the stats to keep only the required countries
 filtered_stats_df = sheet4_df[sheet4_df['TeamName'].isin(teams)]
 
-# Display the filtered dataframe
-print('-------------------------------------------')
-print('Filtered part 6:')
-
-
-# Display the filtered dataframe
-print(filtered_stats_df)
-
 
 
 # Pivot the DataFrame to have stats as columns
@@ -57,12 +49,6 @@ final_df = pivot_df[required_columns]
 
 # Rename columns
 final_df.columns = ['MatchID', 'TeamName'] + required_stats
-
-# Display the final DataFrame
-print(final_df)
-
-
-
 
 
 def prep_data_goal(df_goal):

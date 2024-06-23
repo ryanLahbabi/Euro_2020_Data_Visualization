@@ -8,25 +8,15 @@ required_stats = [
     'Recovered balls', 'Assists', 'Dribbling', 'Corners', 'Offsides', 'Clearances', 'Goals scored on penalty ',
     'Passes attempted', 'Passes completed', 'Free kicks on goal ', 'Crosses attempted', 'Crosses completed',
 ]
-# Load the Excel file
+
 file_path = "./EURO_2020_DATA.xlsx"
 
-# Load the specific sheets into dataframes
-""" sheet3_df = pd.read_excel("./EURO_2020_DATA.xlsx", sheet_name='Players stats')
-# Display the first few rows and the column names
-print("Column Names:", sheet3_df.columns) """
+
+
 
 # Load specific columns from the "Players stats" sheet into a dataframe
 columns = ['MatchID', 'HomeTeamName', 'AwayTeamName', 'PlayerSurname', 'PlayedTime', 'StatsName', 'Value']
 sheet3_df = pd.read_excel(file_path, sheet_name='Players stats', usecols=columns)
-
-# Specify the required stats
-required_stats = [
-    'Fouls committed', 'Yellow cards', 'Fouls suffered', 'Red cards', 'Goals conceded',
-    'Own-goals', 'Saves on penalty', 'Saves', 'Punches', 'Tackles', 'Tackles lost', 'Blocks',
-    'Recovered balls', 'Assists', 'Dribbling', 'Corners', 'Offsides', 'Clearances', 'Goals scored on penalty ',
-    'Passes attempted', 'Passes completed', 'Free kicks on goal ', 'Crosses attempted', 'Crosses completed'
-]
 
 # Filter the stats within Sheet3 to keep only the required stats
 filtered_stats_df = sheet3_df[sheet3_df['StatsName'].isin(required_stats)]
@@ -39,13 +29,6 @@ required_countries = ['Austria', 'Belgium', 'England', 'Italy', 'Spain', 'Switze
 
 # Filter the stats to keep only the required countries
 filtered_stats_df = filtered_stats_df[filtered_stats_df['HomeTeamName'].isin(required_countries)]
-
-# Display the filtered dataframe
-print('-------------------------------------------')
-print('Filtered part mon garsssss:')
-
-# Display the filtered dataframe
-print(filtered_stats_df)
 
 # Pivot the DataFrame to have stats as columns
 pivot_df = filtered_stats_df.pivot(index=['MatchID', 'HomeTeamName', 'AwayTeamName', 'PlayerSurname', 'PlayedTime'],
@@ -60,10 +43,6 @@ final_df = pivot_df[required_columns]
 
 # Rename columns
 final_df.columns = ['MatchID', 'HomeTeamName', 'AwayTeamName', 'PlayerSurname', 'PlayedTime'] + required_stats
-
-# Display the final DataFrame
-print("WSHHH")
-print(final_df)
 
 def prep_offense_data(df, team_name):
     '''

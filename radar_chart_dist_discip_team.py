@@ -35,15 +35,6 @@ categories_discip= ['Fouls committed', 'Yellow cards', 'Fouls suffered', 'Red ca
 # Filter the stats to keep only the required countries
 filtered_stats_df = sheet4_df[sheet4_df['TeamName'].isin(teams)]
 
-# Display the filtered dataframe
-print('-------------------------------------------')
-print('Filtered part 1:')
-
-
-# Display the filtered dataframe
-print(filtered_stats_df)
-
-
 
 # Pivot the DataFrame to have stats as columns
 pivot_df = filtered_stats_df.pivot(index=['MatchID','TeamName'],
@@ -57,8 +48,6 @@ final_df = pivot_df[required_columns]
 # Rename columns
 final_df.columns = ['MatchID', 'TeamName'] + required_stats
 
-# Display the final DataFrame
-print(final_df)
 
 
 
