@@ -69,43 +69,60 @@ image2 = "https://wallpapercave.com/wp/wp9488231.jpg"
 home_layout = html.Div(
     style={
         'font-family': 'Roboto, sans-serif',
-        'color': '#FFFFFF',
-        'backgroundColor': '#1A1A1A',  # Dark background color for a sleek look
-        'padding': '20px'
+        'color': '#333333',
+        'backgroundColor': '#F5F5F5'  # Light grey background for a modern look
     },
     children=[
         # Header Section
         html.Div(
             style={
-                'backgroundColor': '#000000',  # Solid black background for prestige
+                'backgroundColor': '#2C3E50',  # Dark grey background for contrast
                 'padding': '10px 20px',
                 'display': 'flex',
                 'justifyContent': 'space-between',
                 'alignItems': 'center',
                 'borderRadius': '12px',
-                'boxShadow': '0 6px 12px rgba(0, 0, 0, 0.2)',
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)',
+                'position': 'relative'  # Necessary for the hover effect
             },
             children=[
                 html.H1(
                     "Euro 2020: A Happy Outcome in Pandemics",
                     style={
                         'font-size': '2em',
-                        'color': '#EAEAEA',
+                        'color': '#ECF0F1',
                         'margin': '0',
                         'font-weight': 'bold',
-                        'font-family': 'Montserrat, sans-serif'  # Modern and classy font
+                        'font-family': 'Montserrat, sans-serif'
                     }
                 ),
                 html.Nav(
                     style={'display': 'flex', 'gap': '25px'},
                     children=[
-                        html.A("Home", href="/", style={'color': '#EAEAEA', 'textDecoration': 'none', 'fontSize': '1.2em', 'fontWeight': 'bold'}),
-                        html.A("Statistics", href="/statistics", style={'color': '#EAEAEA', 'textDecoration': 'none', 'fontSize': '1.2em', 'fontWeight': 'bold'}),
+                        html.A("Home", href="/", style={
+                            'color': '#ECF0F1',
+                            'textDecoration': 'none',
+                            'fontSize': '1.2em',
+                            'fontWeight': 'bold',
+                            'position': 'relative',
+                            'padding': '5px 10px',
+                            'borderRadius': '5px',
+                            'transition': 'background-color 0.3s ease'
+                        }),
+                        html.A("Statistics", href="/statistics", style={
+                            'color': '#ECF0F1',
+                            'textDecoration': 'none',
+                            'fontSize': '1.2em',
+                            'fontWeight': 'bold',
+                            'position': 'relative',
+                            'padding': '5px 10px',
+                            'borderRadius': '5px',
+                            'transition': 'background-color 0.3s ease'
+                        }),
                     ]
                 )
             ]
         ),
-
         # Image as Wallpaper
         html.Div(
             style={
@@ -116,7 +133,7 @@ home_layout = html.Div(
                 'backgroundSize': 'cover',
                 'backgroundPosition': 'center',
                 'borderRadius': '12px',
-                'boxShadow': '0 6px 12px rgba(0, 0, 0, 0.2)',
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)',
                 'marginTop': '20px'
             },
             children=[
@@ -125,12 +142,12 @@ home_layout = html.Div(
                         'position': 'absolute',
                         'bottom': '20px',
                         'left': '20px',
-                        'backgroundColor': 'rgba(0, 0, 0, 0.8)',
-                        'color': '#FFFFFF',
+                        'backgroundColor': 'rgba(44, 62, 80, 0.8)',  # Semi-transparent dark grey
+                        'color': '#ECF0F1',
                         'padding': '20px',
                         'borderRadius': '12px',
-                        'maxWidth': '70%',  # Ensure the text doesn't stretch too wide
-                        'font-family': 'Lora, serif'  # Elegant font for body text
+                        'maxWidth': '70%',
+                        'font-family': 'Lora, serif'
                     },
                     children=[
                         html.P(
@@ -149,20 +166,19 @@ home_layout = html.Div(
                 )
             ]
         ),
-
         # Lineup Chart Section
         html.Div(
             style={
                 'padding': '20px',
-                'backgroundColor': '#2C2C2C',
+                'backgroundColor': '#ECF0F1',  # Light grey for modern look
                 'borderRadius': '12px',
                 'marginTop': '20px',
-                'boxShadow': '0 6px 12px rgba(0, 0, 0, 0.2)'
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'
             },
             children=[
                 html.Div(
                     style={
-                        'backgroundColor': '#4F7942',
+                        'backgroundColor': '#2980B9',  # Light blue for contrast
                         'font-size': '1.5em',
                         'borderRadius': '8px',
                         'padding': '15px',
@@ -185,7 +201,7 @@ home_layout = html.Div(
                                 {'label': team, 'value': team} for team in ['Italy', 'England', 'Spain', 'Belgium', 'Austria', 'Switzerland']
                             ],
                             value='Italy',
-                            style={'flex': '1', 'marginRight': '10px', 'color': '#000000'}  # Dropdown text color
+                            style={'flex': '1', 'marginRight': '10px', 'color': '#333333'}
                         ),
                         dcc.Checklist(
                             id='role-selector',
@@ -197,7 +213,7 @@ home_layout = html.Div(
                             ],
                             value=['goalkeepers', 'defenders', 'midfields', 'forwards'],
                             inline=True,
-                            style={'flex': '2', 'display': 'flex', 'justifyContent': 'space-between', 'color': 'white'}
+                            style={'flex': '2', 'display': 'flex', 'justifyContent': 'space-between', 'color': '#333333'}
                         )
                     ]
                 ),
@@ -208,38 +224,56 @@ home_layout = html.Div(
 )
 
 
-
 statistics_layout = html.Div(
     style={
         'font-family': 'Roboto, sans-serif',
-        'color': 'black',
-        'backgroundColor': '#333333'
+        'color': '#333333',
+        'backgroundColor': '#F5F5F5'  # Light grey background for a modern look
     },
     children=[
         html.Div(
             style={
-                'backgroundColor': '#333333',
+                'backgroundColor': '#2C3E50',  # Dark grey background for contrast
                 'padding': '10px 20px',
                 'display': 'flex',
                 'justifyContent': 'space-between',
                 'alignItems': 'center',
-                'borderRadius': '8px',
+                'borderRadius': '12px',
                 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)',
+                'position': 'relative'  # Necessary for the hover effect
             },
             children=[
                 html.H1(
                     "Euro 2020: A Happy Outcome in Pandemics",
                     style={
-                        'font-size': '1.5em',
-                        'color': 'white',
-                        'margin': '0'
+                        'font-size': '2em',
+                        'color': '#ECF0F1',
+                        'margin': '0',
+                        'font-weight': 'bold',
+                        'font-family': 'Montserrat, sans-serif'
                     }
                 ),
                 html.Nav(
                     style={'display': 'flex', 'gap': '15px'},
                     children=[
-                        html.A("Home", href="/", style={'color': 'white', 'textDecoration': 'none'}),
-                        html.A("Statistics", href="/statistics", style={'color': 'white', 'textDecoration': 'none'}),
+                        html.A("Home", href="/", style={
+                            'color': '#ECF0F1',
+                            'textDecoration': 'none',
+                            'fontSize': '1.2em',
+                            'fontWeight': 'bold',
+                            'position': 'relative',
+                            'padding': '5px 10px',
+                            'borderRadius': '5px',
+                            'transition': 'background-color 0.3s ease'}),
+                        html.A("Statistics", href="/statistics", style={
+                            'color': '#ECF0F1',
+                            'textDecoration': 'none',
+                            'fontSize': '1.2em',
+                            'fontWeight': 'bold',
+                            'position': 'relative',
+                            'padding': '5px 10px',
+                            'borderRadius': '5px',
+                            'transition': 'background-color 0.3s ease'}),
                     ]
                 )
             ]
@@ -248,8 +282,8 @@ statistics_layout = html.Div(
         html.Div(
             style={
                 'padding': '0 30px', 
-                'backgroundColor': '#333333', 
-                'color': 'white', 
+                'backgroundColor': '#F5F5F5', 
+                'color': '#333333', 
                 'borderRadius': '8px',
                 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)', 
                 'marginBottom': '20px'
@@ -257,11 +291,14 @@ statistics_layout = html.Div(
             children=[
                 html.Div(
                     style={
-                        'backgroundColor': '#444444',
+                        'backgroundColor': '#34495E',
                         'fontSize': '1.5em',
                         'borderRadius': '8px 8px 0 0',
                         'padding': '10px 20px',
-                        'boxShadow': '0 2px 4px rgba(0, 0, 0, 0.1)'
+                        'boxShadow': '0 2px 4px rgba(0, 0, 0, 0.1)',
+                        'color': '#ECF0F1',
+                        'marginTop': '20px'  
+
                     },
                     children=[
                         html.H2('Player Evaluation', style={'margin': '0', 'fontWeight': 'bold'})
@@ -270,9 +307,9 @@ statistics_layout = html.Div(
                 html.Div(
                     style={
                         'padding': '20px',
-                        'backgroundColor': '#555555',
+                        'backgroundColor': '#ECF0F1',
                         'borderRadius': '0 0 8px 8px',
-                        'marginBottom': '20px'
+                        'marginBottom': '20px',
                     },
                     children=[
                         html.H2('Defense and Offense', style={'marginTop': '0'}),
@@ -299,7 +336,7 @@ statistics_layout = html.Div(
                 html.Div(
                     style={
                         'padding': '20px',
-                        'backgroundColor': '#555555',
+                        'backgroundColor': '#ECF0F1',
                         'borderRadius': '8px',
                         'marginBottom': '20px'
                     },
@@ -318,7 +355,7 @@ statistics_layout = html.Div(
                 html.Div(
                     style={
                         'padding': '20px',
-                        'backgroundColor': '#555555',
+                        'backgroundColor': '#ECF0F1',
                         'borderRadius': '8px',
                         'marginBottom': '20px'
                     },
@@ -337,31 +374,33 @@ statistics_layout = html.Div(
                 ),
                 html.Div(
                     style={
-                        'padding': '20px',
-                        'backgroundColor': '#444444',
-                        'borderRadius': '8px 8px 0 0',
-                        'marginBottom': '20px'
+                'marginBottom': '60px',
+                'backgroundColor': '#333333',  # Dark background color
+                'borderRadius': '8px',
+                'padding': '20px',
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'
                     },
                     children=[
-                        html.H2('Team Evaluation', style={'margin': '0'}),
+                        html.H2('Team Evaluation', style={'color': 'white', 'marginBottom': '20px'}),
                         html.Div(
                             style={
-                                'padding': '20px',
-                                'backgroundColor': '#555555',
-                                'borderRadius': '0 0 8px 8px',
-                                'marginBottom': '20px'
+                'marginBottom': '60px',
+                'backgroundColor': '#333333',  # Dark background color
+                'borderRadius': '8px',
+                'padding': '20px',
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'
                             },
                             children=[
-                                html.H2('Dissecting The Teams\' Performance', style={'marginTop': '0'}),
+                                html.H2('Dissecting The Teams\' Performance' , style={'color': 'white', 'marginBottom': '20px'}),
                                 html.P(
                                     "Let us visit again the previous performance aspects for the teams! For that, we will rely on a radar chart, "
                                     "which is quite good for performing cross-comparison. Again, we dive into the defense, offense, distribution, "
                                     "disciplinary, goals, and goals keeping profiles of the teams, through exploiting pertinent statistics pertaining to those. "
                                     "All the displayed values correspond to the total per team. We do not want winners devoid of sportsmanship; this is why "
                                     "we are scrutinizing the disciplinary aspects of the competitors!",
-                                    style={'lineHeight': '1.6', 'textAlign': 'justify'}
+                                    style={'color': 'white', 'fontSize': '1.1em', 'lineHeight': '1.6', 'marginBottom': '20px', 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'}
                                 ),
-                                html.H2('Offensive Team Analysis', style={'marginTop': '0'}),
+                                html.H2('Offensive Team Analysis',  style={'color': 'white', 'marginBottom': '20px'}),
                                 html.Div(
                                     style={
                                         'width': '100%', 
@@ -421,34 +460,36 @@ statistics_layout = html.Div(
             children=[
                 html.H2('Defensive Team Analysis', style={'color': 'white', 'marginBottom': '20px'}),
                 html.Div(
-                    style={'width': '100%', 'display': 'flex', 'justifyContent': 'space-between', 'flexDirection': 'row'},
+                    style={'display': 'flex', 'alignItems': 'center', 'justifyContent': 'space-between'},
                     children=[
                         html.Div(style={'width': '60%', 'padding': '10px'}, children=[
                             add_graph(id='radar-chart_defense', figure=fig_defense_team)
                         ]),
-                        html.Div(style={'width': '35%', 'padding': '10px', 'color': 'white'}, children=[
+                        html.Div(
+                            style={'width': '35%', 'padding': '20px', 'backgroundColor': '#444', 'borderRadius': '8px', 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)', 'color': 'white'}, 
+                            children=[
                             html.Table(
                                 style={'width': '100%', 'borderCollapse': 'collapse'},
                                 children=[
                                     html.Thead(
                                         children=html.Tr(children=[
-                                            html.Th('Name', style={'borderBottom': '2px solid #444', 'padding': '10px'}),
-                                            html.Th('Description', style={'borderBottom': '2px solid #444', 'padding': '10px'})
+                                            html.Th('Name', style={'padding': '10px', 'borderBottom': '2px solid #888'}),
+                                            html.Th('Description', style={'padding': '10px', 'borderBottom': '2px solid #888'})
                                         ])
                                     ),
                                     html.Tbody(
                                         children=[
                                             html.Tr(children=[
-                                                html.Td('Assist', style={'padding': '10px', 'borderBottom': '1px solid #444'}),
-                                                html.Td('Final pass or touch leading directly to a goal.', style={'padding': '10px', 'borderBottom': '1px solid #444'})
+                                                html.Td('Assist', style={'padding': '10px', 'borderBottom': '1px solid #888'}),
+                                                html.Td('Final pass or touch leading directly to a goal.', style={'padding': '10px', 'borderBottom': '1px solid #888'})
                                             ]),
                                             html.Tr(children=[
-                                                html.Td('Corner', style={'padding': '10px', 'borderBottom': '1px solid #444'}),
-                                                html.Td('Kick awarded to an attacking team when the ball goes over the goal line after last being touched by a defending player.', style={'padding': '10px', 'borderBottom': '1px solid #444'})
+                                                html.Td('Corner', style={'padding': '10px', 'borderBottom': '1px solid #888'}),
+                                                html.Td('Kick awarded to an attacking team when the ball goes over the goal line after last being touched by a defending player.', style={'padding': '10px', 'borderBottom': '1px solid #888'})
                                             ]),
                                             html.Tr(children=[
-                                                html.Td('Offside', style={'padding': '10px', 'borderBottom': '1px solid #444'}),
-                                                html.Td('Violation occurring when an attacking player is positioned nearer to the opponent goal line when the ball is passed to him.', style={'padding': '10px', 'borderBottom': '1px solid #444'})
+                                                html.Td('Offside', style={'padding': '10px', 'borderBottom': '1px solid #888'}),
+                                                html.Td('Violation occurring when an attacking player is positioned nearer to the opponent goal line when the ball is passed to him.', style={'padding': '10px', 'borderBottom': '1px solid #888'})
                                             ])
                                         ]
                                     )
@@ -472,42 +513,44 @@ statistics_layout = html.Div(
             children=[
                 html.H2('Distribution Team Analysis', style={'color': 'white', 'marginBottom': '20px'}),
                 html.Div(
-                    style={'width': '100%', 'display': 'flex', 'justifyContent': 'space-between', 'flexDirection': 'row'},
+                    style={'display': 'flex', 'alignItems': 'center', 'justifyContent': 'space-between'},
                     children=[
                         html.Div(style={'width': '60%', 'padding': '10px'}, children=[
                             add_graph(id='radar-chart_distribution', figure=fig_dist_team)
                         ]),
-                        html.Div(style={'width': '35%', 'padding': '10px', 'color': 'white'}, children=[
+                        html.Div(
+                            style={'width': '35%', 'padding': '20px', 'backgroundColor': '#444', 'borderRadius': '8px', 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)', 'color': 'white'}, 
+                            children=[
                             html.Table(
                                 style={'width': '100%', 'borderCollapse': 'collapse'},
                                 children=[
                                     html.Thead(
                                         children=html.Tr(children=[
-                                            html.Th('Name', style={'borderBottom': '2px solid #444', 'padding': '10px'}),
-                                            html.Th('Description', style={'borderBottom': '2px solid #444', 'padding': '10px'})
+                                            html.Th('Name', style={'borderBottom': '2px solid #888', 'padding': '10px', 'textAlign': 'left'}),
+                                            html.Th('Description', style={'borderBottom': '2px solid #888', 'padding': '10px', 'textAlign': 'left'})
                                         ])
                                     ),
                                     html.Tbody(
                                         children=[
                                             html.Tr(children=[
-                                                html.Td('Passes attempted', style={'padding': '10px', 'borderBottom': '1px solid #444'}),
-                                                html.Td('Total number of attempts a player made kicking, heading, or moving the ball to a teammate.', style={'padding': '10px', 'borderBottom': '1px solid #444'})
+                                                html.Td('Passes attempted', style={'padding': '10px', 'borderBottom': '1px solid #888'}),
+                                                html.Td('Total number of attempts a player made kicking, heading, or moving the ball to a teammate.', style={'padding': '10px', 'borderBottom': '1px solid #888'})
                                             ]),
                                             html.Tr(children=[
-                                                html.Td('Passes completed', style={'padding': '10px', 'borderBottom': '1px solid #444'}),
-                                                html.Td('Number of passes that successfully reach a teammate.', style={'padding': '10px', 'borderBottom': '1px solid #444'})
+                                                html.Td('Passes completed', style={'padding': '10px', 'borderBottom': '1px solid #888'}),
+                                                html.Td('Number of passes that successfully reach a teammate.', style={'padding': '10px', 'borderBottom': '1px solid #888'})
                                             ]),
                                             html.Tr(children=[
-                                                html.Td('Crosses attempted', style={'padding': '10px', 'borderBottom': '1px solid #444'}),
-                                                html.Td('Number of times a player attempts to send the ball from the wide areas to the penalty area of the opponent.', style={'padding': '10px', 'borderBottom': '1px solid #444'})
+                                                html.Td('Crosses attempted', style={'padding': '10px', 'borderBottom': '1px solid #888'}),
+                                                html.Td('Number of times a player attempts to send the ball from the wide areas to the penalty area of the opponent.', style={'padding': '10px', 'borderBottom': '1px solid #888'})
                                             ]),
                                             html.Tr(children=[
-                                                html.Td('Crosses completed', style={'padding': '10px', 'borderBottom': '1px solid #444'}),
-                                                html.Td('Number of successful crosses that reach a teammate.', style={'padding': '10px', 'borderBottom': '1px solid #444'})
+                                                html.Td('Crosses completed', style={'padding': '10px', 'borderBottom': '1px solid #888'}),
+                                                html.Td('Number of successful crosses that reach a teammate.', style={'padding': '10px', 'borderBottom': '1px solid #888'})
                                             ]),
                                             html.Tr(children=[
-                                                html.Td('Free kicks on goal', style={'padding': '10px', 'borderBottom': '1px solid #444'}),
-                                                html.Td('Restarting play after a foul or other infringement has occurred with the intention of scoring a goal.', style={'padding': '10px', 'borderBottom': '1px solid #444'})
+                                                html.Td('Free kicks on goal', style={'padding': '10px', 'borderBottom': '1px solid #888'}),
+                                                html.Td('Restarting play after a foul or other infringement has occurred with the intention of scoring a goal.', style={'padding': '10px', 'borderBottom': '1px solid #888'})
                                             ])
                                         ]
                                     )
@@ -531,38 +574,40 @@ statistics_layout = html.Div(
             children=[
                 html.H2('Disciplinary Team Analysis', style={'color': 'white', 'marginBottom': '20px'}),
                 html.Div(
-                    style={'width': '100%', 'display': 'flex', 'justifyContent': 'space-between', 'flexDirection': 'row'},
+                    style={'display': 'flex', 'alignItems': 'center', 'justifyContent': 'space-between'},
                     children=[
                         html.Div(style={'width': '60%', 'padding': '10px'}, children=[
                             add_graph(id='radar-chart_discipline', figure=fig_discip_team)
                         ]),
-                        html.Div(style={'width': '35%', 'padding': '10px', 'color': 'white'}, children=[
+                        html.Div(
+                            style={'width': '35%', 'padding': '20px', 'backgroundColor': '#444', 'borderRadius': '8px', 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)', 'color': 'white'}, 
+                            children=[
                             html.Table(
                                 style={'width': '100%', 'borderCollapse': 'collapse'},
                                 children=[
                                     html.Thead(
                                         children=html.Tr(children=[
-                                            html.Th('Name', style={'borderBottom': '2px solid #444', 'padding': '10px'}),
-                                            html.Th('Description', style={'borderBottom': '2px solid #444', 'padding': '10px'})
+                                            html.Th('Name', style={'borderBottom': '2px solid #888', 'padding': '10px', 'textAlign': 'left'}),
+                                            html.Th('Description', style={'borderBottom': '2px solid #888', 'padding': '10px', 'textAlign': 'left'})
                                         ])
                                     ),
                                     html.Tbody(
                                         children=[
                                             html.Tr(children=[
-                                                html.Td('Fouls committed', style={'padding': '10px', 'borderBottom': '1px solid #444'}),
-                                                html.Td('Number of times a player breaks the rules resulting in a free kick or penalty for the opposing team.', style={'padding': '10px', 'borderBottom': '1px solid #444'})
+                                                html.Td('Fouls committed', style={'padding': '10px', 'borderBottom': '1px solid #888'}),
+                                                html.Td('Number of times a player breaks the rules resulting in a free kick or penalty for the opposing team.', style={'padding': '10px', 'borderBottom': '1px solid #888'})
                                             ]),
                                             html.Tr(children=[
-                                                html.Td('Yellow cards', style={'padding': '10px', 'borderBottom': '1px solid #444'}),
-                                                html.Td('Cautions given to a player by the referee for serious fouls or misconduct.', style={'padding': '10px', 'borderBottom': '1px solid #444'})
+                                                html.Td('Yellow cards', style={'padding': '10px', 'borderBottom': '1px solid #888'}),
+                                                html.Td('Cautions given to a player by the referee for serious fouls or misconduct.', style={'padding': '10px', 'borderBottom': '1px solid #888'})
                                             ]),
                                             html.Tr(children=[
-                                                html.Td('Fouls suffered', style={'padding': '10px', 'borderBottom': '1px solid #444'}),
-                                                html.Td('Number of times a player is fouled by an opponent.', style={'padding': '10px', 'borderBottom': '1px solid #444'})
+                                                html.Td('Fouls suffered', style={'padding': '10px', 'borderBottom': '1px solid #888'}),
+                                                html.Td('Number of times a player is fouled by an opponent.', style={'padding': '10px', 'borderBottom': '1px solid #888'})
                                             ]),
                                             html.Tr(children=[
-                                                html.Td('Red cards', style={'padding': '10px', 'borderBottom': '1px solid #444'}),
-                                                html.Td('Send-off given to players for serious fouls or misconduct, resulting in their removal from the game.', style={'padding': '10px', 'borderBottom': '1px solid #444'})
+                                                html.Td('Red cards', style={'padding': '10px', 'borderBottom': '1px solid #888'}),
+                                                html.Td('Send-off given to players for serious fouls or misconduct, resulting in their removal from the game.', style={'padding': '10px', 'borderBottom': '1px solid #888'})
                                             ])
                                         ]
                                     )
@@ -575,7 +620,13 @@ statistics_layout = html.Div(
         ),
                 # -------Goals----------
         html.Div(
-            style={'marginBottom': '60px'}, 
+            style={  
+                'marginBottom': '60px',
+                'backgroundColor': '#333333',  # Dark background color
+                'borderRadius': '8px',
+                'padding': '20px',
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'  # Soft shadow for depth
+                }, 
             children=[
                 html.H2('Goals Team Performance', style={'color': 'white', 'fontSize': '2em', 'marginBottom': '20px'}),
                 html.Div(
@@ -634,7 +685,13 @@ statistics_layout = html.Div(
 
         # -------Goals Keeping----------
         html.Div(
-            style={'marginBottom': '60px'}, 
+            style={
+                'marginBottom': '60px',
+                'backgroundColor': '#333333',  # Dark background color
+                'borderRadius': '8px',
+                'padding': '20px',
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'  # Soft shadow for depth
+                }, 
             children=[
                 html.H2('Goalkeeping Team Performance', style={'color': 'white', 'fontSize': '2em', 'marginBottom': '20px'}),
                 html.Div(
@@ -686,15 +743,20 @@ statistics_layout = html.Div(
                 )
             ]
         ),
-        html.Div(style={'marginBottom': '60px'}, children=[
+        html.Div(style={
+                'marginBottom': '60px',
+                'backgroundColor': '#333333',  # Dark background color
+                'borderRadius': '8px',
+                'padding': '20px',
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'}, children=[
     html.H2('Additional Analysis', style={'color': 'white', 'fontSize': '2em', 'marginBottom': '20px'}),
     html.P("We're turning to the trusty violin plot to shed some light on hidden yet key factors which made the difference between the two teams having competed for the title at the finals: the distribution of the playing time on the pitch per player, and the distribution of the attempts across the matches per player within the squads. Compared to England, it is observed that Italian players exhibit a more uniform playing time, showing that all had spent a close time on the field. Furthermore, the number of attempts is close among the Italian players, since most have performed either 1 or 2. Apparently the Italian team was coherent and well-synchronized, and this made the difference!",
-           style={'color': 'white', 'fontSize': '1.1em', 'lineHeight': '1.6', 'marginBottom': '20px'}),
+           style={'color': 'white', 'fontSize': '1.1em', 'lineHeight': '1.6', 'marginBottom': '20px', 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'}),
     html.Div(style={'display': 'flex', 'justifyContent': 'space-between', 'flexWrap': 'wrap'}, children=[
-        html.Div(style={'width': '48%', 'padding': '20px', 'backgroundColor': '#f4f4f4', 'borderRadius': '8px', 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)', 'marginBottom': '20px'}, children=[
+        html.Div(style={'width': '90%', 'padding': '20px', 'backgroundColor': '#f4f4f4', 'borderRadius': '8px', 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)', 'marginBottom': '20px'}, children=[
             add_graph(id='violin-attempts', figure=violon_team.draw_figure(df=violon_team.prep_data_violin(), column="Total Attempts"))
         ]),
-        html.Div(style={'width': '48%', 'padding': '20px', 'backgroundColor': '#f4f4f4', 'borderRadius': '8px', 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)', 'marginBottom': '20px'}, children=[
+        html.Div(style={'width': '90%', 'padding': '20px', 'backgroundColor': '#f4f4f4', 'borderRadius': '8px', 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)', 'marginBottom': '20px'}, children=[
             add_graph(id='violin-played_time', figure=violon_team.draw_figure(df=violon_team.prep_data_violin(), column="Played Time"))
         ])
     ])
