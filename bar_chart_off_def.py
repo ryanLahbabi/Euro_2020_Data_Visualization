@@ -130,42 +130,60 @@ def prep_offense_data(df, team_name):
 '''
 
 
-def prep_defense_data(df):
+def prep_defense_data(df, team_name):
     '''
-        Processes the defense data.
+        Processes the defense data for a specific team.
 
         Args:
-            df: dataframe to process
+            df: DataFrame to process.
+            team_name: Name of the team to filter the data for.
+
         Returns:
-            A prepared pandas dataframe containing the offensive data.
+            A prepared pandas DataFrame containing the defensive data for the specified team.
     '''
+    team_players = {
+        'Austria': ['Baumgartner', 'Lainer', 'Gregoritsch', 'Sabitzer', 'Arnautovic', 'Kalajdzic', 'Trimmel', 'Alaba',
+                    'Schlager', 'Dragovic'],
+        'Belgium': ['Lukaku', 'Hazard', 'Vanaken', 'De Bruyne', 'Meunier', 'Mertens', 'Vertonghen', 'Vermaelen',
+                    'Carrasco', 'Castagne'],
+        'England': ['Kane', 'Sterling', 'Stones', 'Rice', 'Henderson', 'Grealish', 'Mount', 'Trippier', 'Phillips',
+                    'Walker'],
+        'Italy': ['Bellotti', 'Barella', 'Jorginho', 'Insigne', 'Immobile', 'Bernardeschi', 'Verratti', 'Bonucci',
+                  'Chiesa', 'Acerbi'],
+        'Spain': ['Morata', 'Jordi Alba', 'Ferran Torres', 'Sergio Busquets', 'Sarabia', 'Laporte', 'Pedri', 'Koke',
+                  'Gerard Moreno', 'Unai Simón'],
+        'Switzerland': ['Shaqiri', 'Seferovic', 'Gavranovic', 'Embolo', 'Zuber', 'Akanji', 'Xhaka', 'Mbabu', 'Sommer',
+                        'Elvedi']
+    }
 
-    df = df.groupby('PlayerSurname')[['Recovered balls', "Tackles", 'Clearances', 'Blocks']].sum().reset_index()
-    df_defense = df[df['PlayerSurname'].isin(
-        ['Baumgartner', 'Lainer', 'Gregoritsch', 'Sabitzer', 'Arnautovic', 'Kalajdzic', 'Trimmel', 'Alaba', 'Schlager',
-         'Dragovic'])]
+    if team_name not in team_players:
+        return pd.DataFrame()
 
-    # df_defense = df_defense(columns={'Recovered balls', "Tackles", 'Clearances', 'Blocks'})
+    players = team_players[team_name]
+    df_defense = df[df['PlayerSurname'].isin(players)]
+    df_defense = df_defense.groupby('PlayerSurname')[
+        ['Recovered balls', "Tackles", 'Clearances', 'Blocks']].sum().reset_index()
     df_defense['Total'] = df_defense[['Recovered balls', "Tackles", 'Clearances', 'Blocks']].sum(axis=1)
-
     df_defense = df_defense.sort_values('Total', ascending=False)
     df_defense.drop('Total', axis=1, inplace=True)
-
     df_def = pd.melt(df_defense[['PlayerSurname', 'Recovered balls', "Tackles", 'Clearances', 'Blocks']],
-                     id_vars=['PlayerSurname'], var_name='Defensive Actions').copy()
-    # ------------------------------------Calculate percentages
-    total_values = df_def['value'].groupby(df_def['PlayerSurname']).transform('sum')
+                     id_vars=['PlayerSurname'], var_name='Defensive Actions', value_name='Value')
 
-    non_zero_mask = total_values != 0
+    # Calculer les totaux par action défensive
+    df_totals = df_def.groupby(['PlayerSurname', 'Defensive Actions'])['Value'].sum().reset_index()
 
-    df_def['percentages'] = 0.0
-    df_def.loc[non_zero_mask, 'percentages'] = ((df_def['value'][non_zero_mask] / total_values[
-        non_zero_mask]) * 10000).astype(int) / 100
+    # Calculer les pourcentages
+    df_totals['Percentage'] = df_totals.groupby('PlayerSurname')['Value'].transform(lambda x: (x / x.sum()) * 100)
+
+    # Fusionner les pourcentages dans le DataFrame d'origine
+    df_def = df_def.merge(df_totals[['PlayerSurname', 'Defensive Actions', 'Percentage']],
+                          on=['PlayerSurname', 'Defensive Actions'], how='left')
 
     return df_def
 
 
-def create_offense_plot(df):
+
+def create_offense_plot(df, team_name):
     '''
         Generates the barchart from the given offense data.
 
@@ -176,9 +194,9 @@ def create_offense_plot(df):
     '''
     fig = go.Figure()
 
-    fig = px.bar(data_frame=df, x="PlayerSurname", y="value", color="Offensive Types",
-                 title="Austria Offensive Actions",
-                 hover_data=["percentages", "Offensive Types"],
+    fig = px.bar(data_frame=df, x="PlayerSurname", y="Value", color="Offensive Types",
+                 title=f"{team_name} Offensive Actions",
+                 hover_data=["Percentage", "Offensive Types"],
                  text_auto=True)
 
     fig.update_traces(
@@ -191,23 +209,18 @@ def create_offense_plot(df):
     return fig
 
 
-def create_defense_plot(df):
+def create_defense_plot(df, team_name):
     '''
-        Generates the barchart from the given offense data.
+        Generates the barchart from the given defense data.
 
         Args:
-            df: offense dataframe
+            df: defense dataframe
         Returns:
             The defense figure to be displayed.
     '''
-    """ fig = px.bar(data_frame=df, x="PlayerSurname", y="value", color="Defensive Actions",
-                title="Defensive Actions", 
-                hover_data=["percentages","Defensive Actions"],
-                text_auto=True) """
-
-    fig = px.bar(data_frame=df, x="PlayerSurname", y="value", color="Defensive Actions",
-                 title="Austria Defensive Actions",
-                 hover_data=["Defensive Actions"],
+    fig = px.bar(data_frame=df, x="PlayerSurname", y="Value", color="Defensive Actions",
+                 title=f"{team_name} Defensive Actions",
+                 hover_data=["Percentage", "Defensive Actions"],
                  text_auto=True)
 
     fig.update_traces(
@@ -221,12 +234,13 @@ def create_defense_plot(df):
 
 
 
+
 required_columns = ['MatchID', 'HomeTeamName', 'AwayTeamName', 'PlayerSurname', 'PlayedTime'] + required_stats
 final_df = pivot_df[required_columns]
 
 # Rename columns
 final_df.columns = ['MatchID', 'HomeTeamName', 'AwayTeamName', 'PlayerSurname', 'PlayedTime'] + required_stats
-def get_fig():
+def get_fig(team_name):
     '''
         Prepares the data and gets the figures for offense and defense bar charts.
 
@@ -234,11 +248,11 @@ def get_fig():
             The offense and defense figures to be displayed.
     '''
 
-    df_offense_prep = prep_offense_data(final_df)
-    df_defense_prep = prep_defense_data(final_df)
+    df_offense_prep = prep_offense_data(final_df, team_name)
+    df_defense_prep = prep_defense_data(final_df, team_name)
 
-    fig_offense = create_offense_plot(df_offense_prep)
-    fig_defense = create_defense_plot(df_defense_prep)
+    fig_offense = create_offense_plot(df_offense_prep, team_name)
+    fig_defense = create_defense_plot(df_defense_prep, team_name)
 
     return fig_offense, fig_defense
 

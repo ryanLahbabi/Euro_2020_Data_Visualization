@@ -106,21 +106,6 @@ app.layout = html.Div(
             '''
             add_graph(id='barchart-defense_italy', figure=fig_defense_Italy),
             add_graph(id='barchart-offense_italy', figure=fig_offense_Italy),
-
-            add_graph(id='barchart-defense_england', figure=fig_defense_England),
-            add_graph(id='barchart-offense_england', figure=fig_offense_England),
-
-            add_graph(id='barchart-defense_spain', figure=fig_defense_Spain),
-            add_graph(id='barchart-offense_spain', figure=fig_offense_Spain),
-
-            add_graph(id='barchart-defense_belgium', figure=fig_defense_Belgium),
-            add_graph(id='barchart-offense_belgium', figure=fig_offense_Belgium),
-
-            add_graph(id='barchart-defense_austria', figure=fig_defense_Austria),
-            add_graph(id='barchart-offense_austria', figure=fig_offense_Austria),
-
-            add_graph(id='barchart-defense_switzerland', figure=fig_defense_Switzerland),
-            add_graph(id='barchart-offense_switzerland', figure=fig_offense_Switzerland),
                     '''
 
         ]),
@@ -587,6 +572,7 @@ app.layout = html.Div(
 )
 def update_graphs(selected_team):
     fig_offense, fig_defense = get_team_figures(selected_team)
+    print("je update")
     return [
         add_graph(id='barchart-offense', figure=fig_offense),
         add_graph(id='barchart-defense', figure=fig_defense)
