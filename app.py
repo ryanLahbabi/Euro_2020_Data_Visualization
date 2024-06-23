@@ -12,6 +12,9 @@ import bar_dist_discip
 import radar_chart_goal_goalKeeping_team
 import radar_chart_off_def_team
 import radar_chart_dist_discip_team
+from line_up_chart import create_lineup_chart  # Import the create_lineup_chart function
+
+
 
 
 app = dash.Dash(__name__)
@@ -81,6 +84,22 @@ app.layout = html.Div(
                style={'font-size': '1.3em', 'marginBottom': '20px', 'marginLeft': '30px', 'text-align': 'center', 'color': 'white'})
     ]),
 
+    html.Div(style={'padding': '0 30px', 'backgroundColor': 'rgb(59, 59, 59)'}, children=[
+            html.Div(style={'backgroundColor': '#4F7942','font-size': '1.5em','borderRadius': '5px'}, children=[
+                html.H2('Lineup Chart'),
+            ]),
+            html.Div([
+                dcc.Dropdown(
+                    id='lineup-team-selector',
+                    options=[
+                        {'label': team, 'value': team} for team in ['Italy', 'England', 'Spain', 'Belgium', 'Austria', 'Switzerland']
+                    ],
+                    value='Italy'  # Default value
+                ),
+                html.Div(id='lineup-graph'), # Div to insert the lineup chart
+            ]),
+        ]),
+
     #------- OFFENSE DEFENSE 
     
 
@@ -102,12 +121,7 @@ app.layout = html.Div(
                    5) Goals Metrics: Goals scored, Goals scored in open play, Goals scored on penalty, Goals scored on corner, Goals scored on penalty phase, and Goals on set pieces\
                    6) Goal Keeping Metrics: Saves, Goals conceded, Own goals, Saves from penalty, Punches\
                     For each team,  each player's performance is compared in terms of all metrics. An option to select/deselect a metric is enabled by clicking on the legend.\
-                    The hovering utility gives the percentage of the metric. Hence, we can easily identify where weaknesses and strengths lie."),
-            '''
-            add_graph(id='barchart-defense_italy', figure=fig_defense_Italy),
-            add_graph(id='barchart-offense_italy', figure=fig_offense_Italy),
-                    '''
-
+                    The hovering utility gives the percentage of the metric. Hence, we can easily identify where weaknesses and strengths lie.")
         ]),
         html.Div([
             dcc.Dropdown(
@@ -570,6 +584,7 @@ app.layout = html.Div(
     Output('team-graphs', 'children'),
     [Input('team-selector', 'value')]
 )
+
 def update_graphs(selected_team):
     fig_offense, fig_defense = get_team_figures(selected_team)
     print("je update")
@@ -578,6 +593,13 @@ def update_graphs(selected_team):
         add_graph(id='barchart-defense', figure=fig_defense)
     ]
 
+@app.callback(
+    Output('lineup-graph', 'children'),
+    [Input('lineup-team-selector', 'value')]
+)
+def update_lineup_chart(selected_team):
+    fig_lineup = create_lineup_chart(selected_team)
+    return add_graph(id='lineup-chart', figure=fig_lineup)
 
 @server.route('/index')
 def home():
