@@ -5,9 +5,11 @@ import pandas as pd
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
+import environement
+
 
 # Load the Excel file
-file_path ="./EURO_2020_DATA.xlsx"
+file_path = environement.file_path
 
 # Load the specific sheets into dataframes
 """ sheet3_df = pd.read_excel("./EURO_2020_DATA.xlsx", sheet_name='Players stats')

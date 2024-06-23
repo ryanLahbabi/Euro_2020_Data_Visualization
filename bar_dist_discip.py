@@ -1,5 +1,6 @@
 import pandas as pd
 import plotly.express as px
+import environement
 
 required_stats_distribution = [
     'Passes attempted', 'Passes completed', 'Free kicks on goal ', 'Crosses attempted', 'Crosses completed',
@@ -10,9 +11,7 @@ required_stats_disciplinary = [
 ]
 
 
-
-
-file_path = "./EURO_2020_DATA.xlsx"
+file_path = environement.file_path
 team_name = 'Austria'
 
 
