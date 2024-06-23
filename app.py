@@ -69,38 +69,44 @@ image2 = "https://wallpapercave.com/wp/wp9488231.jpg"
 home_layout = html.Div(
     style={
         'font-family': 'Roboto, sans-serif',
-        'color': 'black',
-        'backgroundColor': '#333333'
+        'color': '#FFFFFF',
+        'backgroundColor': '#1A1A1A',  # Dark background color for a sleek look
+        'padding': '20px'
     },
     children=[
+        # Header Section
         html.Div(
             style={
-                'backgroundColor': '#333333',
+                'backgroundColor': '#000000',  # Solid black background for prestige
                 'padding': '10px 20px',
                 'display': 'flex',
                 'justifyContent': 'space-between',
                 'alignItems': 'center',
-                'borderRadius': '8px',
-                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)',
+                'borderRadius': '12px',
+                'boxShadow': '0 6px 12px rgba(0, 0, 0, 0.2)',
             },
             children=[
                 html.H1(
                     "Euro 2020: A Happy Outcome in Pandemics",
                     style={
-                        'font-size': '1.5em',
-                        'color': 'white',
-                        'margin': '0'
+                        'font-size': '2em',
+                        'color': '#EAEAEA',
+                        'margin': '0',
+                        'font-weight': 'bold',
+                        'font-family': 'Montserrat, sans-serif'  # Modern and classy font
                     }
                 ),
                 html.Nav(
-                    style={'display': 'flex', 'gap': '15px'},
+                    style={'display': 'flex', 'gap': '25px'},
                     children=[
-                        html.A("Home", href="/", style={'color': 'white', 'textDecoration': 'none'}),
-                        html.A("Statistics", href="/statistics", style={'color': 'white', 'textDecoration': 'none'}),
+                        html.A("Home", href="/", style={'color': '#EAEAEA', 'textDecoration': 'none', 'fontSize': '1.2em', 'fontWeight': 'bold'}),
+                        html.A("Statistics", href="/statistics", style={'color': '#EAEAEA', 'textDecoration': 'none', 'fontSize': '1.2em', 'fontWeight': 'bold'}),
                     ]
                 )
             ]
         ),
+
+        # Image as Wallpaper
         html.Div(
             style={
                 'position': 'relative',
@@ -109,8 +115,8 @@ home_layout = html.Div(
                 'backgroundImage': f'url({image2})',
                 'backgroundSize': 'cover',
                 'backgroundPosition': 'center',
-                'borderRadius': '8px',
-                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)',
+                'borderRadius': '12px',
+                'boxShadow': '0 6px 12px rgba(0, 0, 0, 0.2)',
                 'marginTop': '20px'
             },
             children=[
@@ -119,10 +125,12 @@ home_layout = html.Div(
                         'position': 'absolute',
                         'bottom': '20px',
                         'left': '20px',
-                        'backgroundColor': 'rgba(0, 0, 0, 1)',
-                        'color': 'white',
-                        'padding': '10px',
-                        'borderRadius': '8px'
+                        'backgroundColor': 'rgba(0, 0, 0, 0.8)',
+                        'color': '#FFFFFF',
+                        'padding': '20px',
+                        'borderRadius': '12px',
+                        'maxWidth': '70%',  # Ensure the text doesn't stretch too wide
+                        'font-family': 'Lora, serif'  # Elegant font for body text
                     },
                     children=[
                         html.P(
@@ -133,44 +141,72 @@ home_layout = html.Div(
                             "which made the differences between the teams and led to Italy's victory! MATCHES ARE NOT PLAYED, THEY ARE WON!.",
                             style={
                                 'font-size': '1.2em',
-                                'lineHeight': '1.6',
-                                'maxWidth': '800px'
+                                'lineHeight': '1.8',
+                                'textShadow': '1px 1px 2px rgba(0, 0, 0, 0.8)'
                             }
                         )
                     ]
                 )
             ]
         ),
-        html.Div(style={'padding': '20px', 'backgroundColor': 'rgb(59, 59, 59)', 'borderRadius': '8px', 'marginBottom': '20px'}, children=[
-            html.Div(style={'backgroundColor': '#4F7942', 'font-size': '1.5em', 'borderRadius': '5px', 'padding': '10px', 'color': 'white'}, children=[
-                html.H2('Lineup Chart', style={'margin': '0'})
-            ]),
-            html.Div(style={'display': 'flex', 'justifyContent': 'space-between', 'alignItems': 'center', 'marginTop': '20px'}, children=[
-                dcc.Dropdown(
-                    id='lineup-team-selector',
-                    options=[
-                        {'label': team, 'value': team} for team in ['Italy', 'England', 'Spain', 'Belgium', 'Austria', 'Switzerland']
-                    ],
-                    value='Italy',  # Default value
-                    style={'flex': '1', 'marginRight': '10px'}
+
+        # Lineup Chart Section
+        html.Div(
+            style={
+                'padding': '20px',
+                'backgroundColor': '#2C2C2C',
+                'borderRadius': '12px',
+                'marginTop': '20px',
+                'boxShadow': '0 6px 12px rgba(0, 0, 0, 0.2)'
+            },
+            children=[
+                html.Div(
+                    style={
+                        'backgroundColor': '#4F7942',
+                        'font-size': '1.5em',
+                        'borderRadius': '8px',
+                        'padding': '15px',
+                        'color': 'white',
+                        'marginBottom': '20px',
+                        'textAlign': 'center',
+                        'fontWeight': 'bold',
+                        'font-family': 'Montserrat, sans-serif'
+                    },
+                    children=[
+                        html.H2('Lineup Chart', style={'margin': '0'})
+                    ]
                 ),
-                dcc.Checklist(
-                    id='role-selector',
-                    options=[
-                        {'label': 'Goalkeepers', 'value': 'goalkeepers'},
-                        {'label': 'Defenders', 'value': 'defenders'},
-                        {'label': 'Midfields', 'value': 'midfielders'},
-                        {'label': 'Forwards', 'value': 'forwards'}
-                    ],
-                    value=['goalkeepers', 'defenders', 'midfields', 'forwards'],  # Default all selected
-                    inline=True,
-                    style={'flex': '2', 'display': 'flex', 'justifyContent': 'space-between', 'color': 'white'}
-                )
-            ]),
-            html.Div(id='lineup-graph', style={'marginTop': '20px'})
-        ])
+                html.Div(
+                    style={'display': 'flex', 'justifyContent': 'space-between', 'alignItems': 'center', 'marginBottom': '20px'},
+                    children=[
+                        dcc.Dropdown(
+                            id='lineup-team-selector',
+                            options=[
+                                {'label': team, 'value': team} for team in ['Italy', 'England', 'Spain', 'Belgium', 'Austria', 'Switzerland']
+                            ],
+                            value='Italy',
+                            style={'flex': '1', 'marginRight': '10px', 'color': '#000000'}  # Dropdown text color
+                        ),
+                        dcc.Checklist(
+                            id='role-selector',
+                            options=[
+                                {'label': 'Goalkeepers', 'value': 'goalkeepers'},
+                                {'label': 'Defenders', 'value': 'defenders'},
+                                {'label': 'Midfields', 'value': 'midfielders'},
+                                {'label': 'Forwards', 'value': 'forwards'}
+                            ],
+                            value=['goalkeepers', 'defenders', 'midfields', 'forwards'],
+                            inline=True,
+                            style={'flex': '2', 'display': 'flex', 'justifyContent': 'space-between', 'color': 'white'}
+                        )
+                    ]
+                ),
+                html.Div(id='lineup-graph', style={'marginTop': '20px'})
+            ]
+        )
     ]
 )
+
 
 
 statistics_layout = html.Div(
