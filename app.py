@@ -77,13 +77,13 @@ home_layout = html.Div(
         # Header Section
         html.Div(
             style={
-                'backgroundColor': '#1A1A1A',
+                'backgroundColor': '#000000',  # Solid black background for prestige
                 'padding': '10px 20px',
                 'display': 'flex',
                 'justifyContent': 'space-between',
                 'alignItems': 'center',
-                'borderRadius': '8px',
-                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.2)',
+                'borderRadius': '12px',
+                'boxShadow': '0 6px 12px rgba(0, 0, 0, 0.2)',
             },
             children=[
                 html.H1(
@@ -92,14 +92,15 @@ home_layout = html.Div(
                         'font-size': '2em',
                         'color': '#EAEAEA',
                         'margin': '0',
-                        'font-weight': 'bold'
+                        'font-weight': 'bold',
+                        'font-family': 'Montserrat, sans-serif'  # Modern and classy font
                     }
                 ),
                 html.Nav(
-                    style={'display': 'flex', 'gap': '20px'},
+                    style={'display': 'flex', 'gap': '25px'},
                     children=[
-                        html.A("Home", href="/", style={'color': '#EAEAEA', 'textDecoration': 'none', 'fontSize': '1.1em', 'fontWeight': 'bold'}),
-                        html.A("Statistics", href="/statistics", style={'color': '#EAEAEA', 'textDecoration': 'none', 'fontSize': '1.1em', 'fontWeight': 'bold'}),
+                        html.A("Home", href="/", style={'color': '#EAEAEA', 'textDecoration': 'none', 'fontSize': '1.2em', 'fontWeight': 'bold'}),
+                        html.A("Statistics", href="/statistics", style={'color': '#EAEAEA', 'textDecoration': 'none', 'fontSize': '1.2em', 'fontWeight': 'bold'}),
                     ]
                 )
             ]
@@ -114,8 +115,8 @@ home_layout = html.Div(
                 'backgroundImage': f'url({image2})',
                 'backgroundSize': 'cover',
                 'backgroundPosition': 'center',
-                'borderRadius': '8px',
-                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.2)',
+                'borderRadius': '12px',
+                'boxShadow': '0 6px 12px rgba(0, 0, 0, 0.2)',
                 'marginTop': '20px'
             },
             children=[
@@ -124,10 +125,12 @@ home_layout = html.Div(
                         'position': 'absolute',
                         'bottom': '20px',
                         'left': '20px',
-                        'backgroundColor': 'rgba(0, 0, 0, 0.7)',
+                        'backgroundColor': 'rgba(0, 0, 0, 0.8)',
                         'color': '#FFFFFF',
-                        'padding': '15px',
-                        'borderRadius': '8px'
+                        'padding': '20px',
+                        'borderRadius': '12px',
+                        'maxWidth': '70%',  # Ensure the text doesn't stretch too wide
+                        'font-family': 'Lora, serif'  # Elegant font for body text
                     },
                     children=[
                         html.P(
@@ -137,9 +140,8 @@ home_layout = html.Div(
                             "performance at the team level, at the player level, accuracy and determination, flops and corrections "
                             "which made the differences between the teams and led to Italy's victory! MATCHES ARE NOT PLAYED, THEY ARE WON!.",
                             style={
-                                'font-size': '1.3em',
+                                'font-size': '1.2em',
                                 'lineHeight': '1.8',
-                                'maxWidth': '800px',
                                 'textShadow': '1px 1px 2px rgba(0, 0, 0, 0.8)'
                             }
                         )
@@ -153,21 +155,22 @@ home_layout = html.Div(
             style={
                 'padding': '20px',
                 'backgroundColor': '#2C2C2C',
-                'borderRadius': '8px',
+                'borderRadius': '12px',
                 'marginTop': '20px',
-                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.2)'
+                'boxShadow': '0 6px 12px rgba(0, 0, 0, 0.2)'
             },
             children=[
                 html.Div(
                     style={
                         'backgroundColor': '#4F7942',
                         'font-size': '1.5em',
-                        'borderRadius': '5px',
+                        'borderRadius': '8px',
                         'padding': '15px',
                         'color': 'white',
                         'marginBottom': '20px',
                         'textAlign': 'center',
-                        'fontWeight': 'bold'
+                        'fontWeight': 'bold',
+                        'font-family': 'Montserrat, sans-serif'
                     },
                     children=[
                         html.H2('Lineup Chart', style={'margin': '0'})
