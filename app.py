@@ -57,7 +57,7 @@ def add_graph(id, figure):
                     scrollZoom=False,
                     showTips=False,
                     showAxisDragHandles=False,
-                    doubleClick=False,
+                    doubleClick=False, 
                     displayModeBar=False
                 )
             ), style={'borderRadius': '8px', 'overflow': 'hidden'})
@@ -155,7 +155,7 @@ home_layout = html.Div(
                             "Was it only luck or a building-up work? Why teams such as Belgium and Spain saw their hopes broken? "
                             "To reply to these legitimate questions, we aim at investigating different impacting factors such as "
                             "performance at the team level, at the player level, accuracy and determination, flops and corrections "
-                            "which made the differences between the teams and led to Italy's victory! MATCHES ARE NOT PLAYED, THEY ARE WON!.",
+                            "which made the differences between the teams and led to Italy's victory! MATCHES ARE NOT PLAYED, THEY ARE WON!",
                             style={
                                 'font-size': '1.2em',
                                 'lineHeight': '1.8',

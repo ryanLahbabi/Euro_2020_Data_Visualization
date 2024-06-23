@@ -1,8 +1,9 @@
 import pandas as pd
 import plotly.graph_objects as go
+import environement
 
 def create_lineup_chart(team_name, selected_roles):
-    file_path = 'EURO_2020_DATA.xlsx'
+    file_path = environement.file_path
     xls = pd.ExcelFile(file_path)
     line_ups_df = pd.read_excel(xls, 'Line-ups')
     
