@@ -1,11 +1,13 @@
 import plotly.graph_objects as go
 import pandas as pd
 import template
+import environement
+
 
 # DATA LOADING AND PROCESSING
 
 # Load the Excel file
-file_path ="./EURO_2020_DATA.xlsx"
+file_path = environement.file_path
 
 # Variable definitions
 

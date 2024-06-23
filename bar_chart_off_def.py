@@ -1,6 +1,7 @@
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
+import environement
 
 required_stats = [
     'Fouls committed', 'Yellow cards', 'Fouls suffered', 'Red cards', 'Goals conceded',
@@ -9,7 +10,9 @@ required_stats = [
     'Passes attempted', 'Passes completed', 'Free kicks on goal ', 'Crosses attempted', 'Crosses completed',
 ]
 
-file_path = "./EURO_2020_DATA.xlsx"
+file_path = environement.file_path
+
+
 
 
 
