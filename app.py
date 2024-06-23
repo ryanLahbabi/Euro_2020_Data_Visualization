@@ -84,20 +84,34 @@ app.layout = html.Div(
                style={'font-size': '1.3em', 'marginBottom': '20px', 'marginLeft': '30px', 'text-align': 'center', 'color': 'white'})
     ]),
 
-    html.Div(style={'padding': '0 30px', 'backgroundColor': 'rgb(59, 59, 59)'}, children=[
-            html.Div(style={'backgroundColor': '#4F7942','font-size': '1.5em','borderRadius': '5px'}, children=[
-                html.H2('Lineup Chart'),
+        # Add a section for Lineup Chart
+            html.Div(style={'padding': '20px', 'backgroundColor': 'rgb(59, 59, 59)', 'borderRadius': '8px', 'marginBottom': '20px'}, children=[
+            html.Div(style={'backgroundColor': '#4F7942', 'font-size': '1.5em', 'borderRadius': '5px', 'padding': '10px', 'color': 'white'}, children=[
+                html.H2('Lineup Chart', style={'margin': '0'})
             ]),
-            html.Div([
+            html.Div(style={'display': 'flex', 'justifyContent': 'space-between', 'alignItems': 'center', 'marginTop': '20px'}, children=[
                 dcc.Dropdown(
                     id='lineup-team-selector',
                     options=[
                         {'label': team, 'value': team} for team in ['Italy', 'England', 'Spain', 'Belgium', 'Austria', 'Switzerland']
                     ],
-                    value='Italy'  # Default value
+                    value='Italy',  # Default value
+                    style={'flex': '1', 'marginRight': '10px'}
                 ),
-                html.Div(id='lineup-graph'), # Div to insert the lineup chart
+                dcc.Checklist(
+                    id='role-selector',
+                    options=[
+                        {'label': 'Goalkeepers', 'value': 'goalkeepers'},
+                        {'label': 'Defenders', 'value': 'defenders'},
+                        {'label': 'Midfields', 'value': 'midfielders'},
+                        {'label': 'Forwards', 'value': 'forwards'}
+                    ],
+                    value=['goalkeepers', 'defenders', 'midfields', 'forwards'],  # Default all selected
+                    inline=True,
+                    style={'flex': '2', 'display': 'flex', 'justifyContent': 'space-between', 'color': 'white'}
+                )
             ]),
+            html.Div(id='lineup-graph', style={'marginTop': '20px'})
         ]),
 
     #------- OFFENSE DEFENSE 
@@ -593,12 +607,13 @@ def update_graphs(selected_team):
         add_graph(id='barchart-defense', figure=fig_defense)
     ]
 
+# Callback for Lineup Chart
 @app.callback(
     Output('lineup-graph', 'children'),
-    [Input('lineup-team-selector', 'value')]
+    [Input('lineup-team-selector', 'value'), Input('role-selector', 'value')]
 )
-def update_lineup_chart(selected_team):
-    fig_lineup = create_lineup_chart(selected_team)
+def update_lineup_chart(selected_team, selected_roles):
+    fig_lineup = create_lineup_chart(selected_team, selected_roles)
     return add_graph(id='lineup-chart', figure=fig_lineup)
 
 @server.route('/index')
