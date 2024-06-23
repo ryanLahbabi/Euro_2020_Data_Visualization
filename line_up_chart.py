@@ -91,3 +91,4 @@ def create_lineup_chart(team_name, selected_roles):
         )]
     )
     return fig
+
