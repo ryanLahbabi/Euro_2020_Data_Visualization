@@ -445,13 +445,8 @@ statistics_layout = html.Div(
                                 ),
                                 html.H2('Offensive Team Analysis',  style={'color': 'white', 'marginBottom': '20px'}),
                                 html.Div(
-                                    style={
-                                        'width': '100%', 
-                                        'display': 'flex', 
-                                        'alignItems': 'center', 
-                                        'justifyContent': 'center', 
-                                        'flexDirection': 'row'
-                                    },
+                                    style={'display': 'flex', 'alignItems': 'center', 'justifyContent': 'space-between'},
+
                                     children=[
                                         html.Div(
                                             style={'width': '60%', 'padding': '10px'}, 
@@ -460,24 +455,25 @@ statistics_layout = html.Div(
                                             ]
                                         ),
                                         html.Div(
-                                            style={'width': '35%', 'padding': '10px'}, 
+                                            style={'width': '35%', 'padding': '20px', 'backgroundColor': '#444', 'borderRadius': '8px', 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)', 'color': 'white'}, 
                                             children=[
                                                 html.Table(
+                                                    style={'width': '100%', 'borderCollapse': 'collapse'},
                                                     children=[
                                                         html.Thead(
                                                             children=html.Tr(
                                                                 children=[
-                                                                    html.Th('Name'),
-                                                                    html.Th('Description')
+                                                                    html.Th('Name', style={'padding': '10px', 'borderBottom': '2px solid #888'}),
+                                                                    html.Th('Description', style={'padding': '10px', 'borderBottom': '2px solid #888'})
                                                                 ]
                                                             )
                                                         ),
                                                         html.Tbody(
                                                             children=[
-                                                                html.Tr(children=[html.Td('Recovered balls'), html.Td('When a player regains possession of the ball from the opposing team.')]),
-                                                                html.Tr(children=[html.Td('Tackles'), html.Td('When a player uses their feet to challenge an opponent for the ball.')]),
-                                                                html.Tr(children=[html.Td('Clearances'), html.Td('When a player kicks the ball away from their goal area to prevent the opposing team from scoring.')]),
-                                                                html.Tr(children=[html.Td('Blocks'), html.Td('When a player stops the ball from advancing, typically a shot or pass, by using their body.')])
+                                                                html.Tr(children=[html.Td('Recovered balls', style={'padding': '10px', 'borderBottom': '1px solid #888'}), html.Td('When a player regains possession of the ball from the opposing team.', style={'padding': '10px', 'borderBottom': '1px solid #888'})]),
+                                                                html.Tr(children=[html.Td('Tackles', style={'padding': '10px', 'borderBottom': '1px solid #888'}), html.Td('When a player uses their feet to challenge an opponent for the ball.', style={'padding': '10px', 'borderBottom': '1px solid #888'})]),
+                                                                html.Tr(children=[html.Td('Clearances', style={'padding': '10px', 'borderBottom': '1px solid #888'}), html.Td('When a player kicks the ball away from their goal area to prevent the opposing team from scoring.', style={'padding': '10px', 'borderBottom': '1px solid #888'})]),
+                                                                html.Tr(children=[html.Td('Blocks', style={'padding': '10px', 'borderBottom': '1px solid #888'}), html.Td('When a player stops the ball from advancing, typically a shot or pass, by using their body.', style={'padding': '10px', 'borderBottom': '1px solid #888'})])
                                                             ]
                                                         )
                                                     ]
