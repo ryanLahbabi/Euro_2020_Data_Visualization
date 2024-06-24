@@ -47,7 +47,7 @@ def aggregate_data_disciplinary(df):
     return df_distribution
 
 def create_plot(df, title, yaxis_title):
-    df = df.drop(columns=['MatchID', 'HomeTeamName', 'AwayTeamName', 'PlayedTime'])
+   # df = df.drop(columns=['MatchID', 'HomeTeamName', 'AwayTeamName', 'PlayedTime'])
     df_melted = df.melt(id_vars=['PlayerSurname'], var_name='StatsName', value_name='Value')
     fig = px.bar(data_frame=df_melted, x="PlayerSurname", y="Value", color="StatsName",
                  title=title, hover_data={'StatsName': True, 'Value': True, 'PlayerSurname': False}, text_auto=True)
