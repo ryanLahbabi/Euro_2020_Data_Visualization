@@ -100,7 +100,7 @@ for team_name, players in team_players.items():
     file_path_discip = os.path.abspath(file_path_discip_r)
     
 
-    with open(f'f{file_path_dist}', 'w') as f:
+    with open(f'{file_path_dist}', 'w') as f:
         json.dump(fig_distribution_dict, f)
-    with open(f'f{file_path_discip}', 'w') as f:
+    with open(f'{file_path_discip}', 'w') as f:
         json.dump(fig_disciplinary_dict, f)
