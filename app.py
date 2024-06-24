@@ -211,7 +211,7 @@ home_layout = html.Div(
                                 {'label': 'Midfields', 'value': 'midfielders'},
                                 {'label': 'Forwards', 'value': 'forwards'}
                             ],
-                            value=['goalkeepers', 'defenders', 'midfields', 'forwards'],
+                            value=['goalkeepers', 'defenders', 'midfielders', 'forwards'],
                             inline=True,
                             style={'flex': '2', 'display': 'flex', 'justifyContent': 'space-between', 'color': '#333333'}
                         )
