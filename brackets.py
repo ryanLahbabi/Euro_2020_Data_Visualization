@@ -73,7 +73,7 @@ def generate_bracket():
         if "penalties" in match:
             hovertext += f"<br>Penalties: {match['penalties']}"
         date = datetime.strptime(match['date'], '%Y-%m-%dT%H:%M:%S')
-        hovertext += f"<br>Date: {date.strftime("%B %d, %Y, %H:%M")}"  
+        hovertext += f"<br>Date: {date.strftime('%B %d, %Y, %H:%M')}"  
         hovertext += f"<br>Match Duration: {match['match duration']}"
 
 
@@ -86,7 +86,8 @@ def generate_bracket():
             y1=y + 0.2,
             line=dict(color="RoyalBlue"),
             fillcolor="LightSkyBlue",
-            opacity=0.5  # Vous pouvez ajuster ce nombre entre 0 (transparent) et 1 (opaque)
+            opacity=0.5,
+              # Vous pouvez ajuster ce nombre entre 0 (transparent) et 1 (opaque)
         )
 
         fig.add_trace(go.Scatter(
