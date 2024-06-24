@@ -14,6 +14,7 @@ import bar_dist_discip
 import radar_chart_goal_goalKeeping_team
 import radar_chart_off_def_team
 import radar_chart_dist_discip_team
+import brackets
 from line_up_chart import create_lineup_chart  # Import the create_lineup_chart function
 
 
@@ -227,8 +228,41 @@ home_layout = html.Div(
                 ),
                 html.Div(id='lineup-graph', style={'marginTop': '20px'})
             ]
-        )
-    ]
+        ),
+
+        html.Div(
+        style={
+            'padding': '20px',
+            'backgroundColor': '#ECF0F1',  # Light grey for modern look
+            'borderRadius': '12px',
+            'marginTop': '10px',
+            'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'
+        },
+        children=[
+            html.Div(
+                style={
+                    'backgroundColor': '#2980B9',  # Light blue for contrast
+                    'font-size': '1.5em',
+                    'borderRadius': '8px',
+                    'padding': '15px',
+                    'color': 'white',
+                    'marginBottom': '10px',
+                    'textAlign': 'center',
+                    'fontWeight': 'bold',
+                    'font-family': 'Montserrat, sans-serif'
+                },
+                children=[
+                    html.H2('Tournament Bracket', style={'margin': '0'})
+                ]
+            ),
+            dcc.Graph(
+                id='bracket-graph',
+                figure= brackets.generate_bracket(),  # Call the function to generate the bracket figure
+                style={'marginTop': '0', 'height': '1000px' }
+            )
+        ]
+    )
+]
 )
 
 

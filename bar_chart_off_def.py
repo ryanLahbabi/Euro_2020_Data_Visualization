@@ -87,6 +87,8 @@ def prep_offense_data(df, team_name):
 
     # Calculate total offensive actions
     df_offense['Total'] = df_offense[['Assists', 'Corners', 'Offsides']].sum(axis=1)
+    df_offense = df_offense.sort_values('Total', ascending=False)
+
 
     # Melt the DataFrame for easier plotting/analysis later
     df_melted = pd.melt(df_offense, id_vars='PlayerSurname', var_name='Offensive Types', value_name='Value')
@@ -97,19 +99,6 @@ def prep_offense_data(df, team_name):
 
     return df_melted
 
-'''
-    # Aggregate the data for each player across all matches
-    df_offense = df_offense.groupby('PlayerSurname')[['Assists', 'Corners', 'Offsides']].sum().reset_index()
-
-
-    # Sort and prepare for plotting
-    df_offense['Total'] = df_offense[['Assists', 'Corners', 'Offsides']].sum(axis=1)
-    df_offense = df_offense.sort_values('Total', ascending=False)
-    df_offense.drop('Total', axis=1, inplace=True)
-
-    df_off = pd.melt(df_offense, id_vars=['PlayerSurname'], var_name='Offensive Types').copy()
-    return df_off
-'''
 
 
 def prep_defense_data(df, team_name):
