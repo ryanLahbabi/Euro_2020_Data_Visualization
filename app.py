@@ -1,6 +1,9 @@
 import dash
 from dash import html, dcc, Input, Output
 from flask import Flask, render_template
+import json
+import plotly.graph_objs as go
+
 
 server = Flask(__name__)  # Create a Flask instance
 app = Flask(__name__)
@@ -20,6 +23,11 @@ from line_up_chart import create_lineup_chart  # Import the create_lineup_chart 
 app = dash.Dash(__name__)
 app.title = 'Project_Viz'
 server = app.server
+
+def load_figure_from_json(file_path):
+    with open(file_path, 'r') as f:
+        fig_dict = json.load(f)
+    return go.Figure(fig_dict)
 
 
 
@@ -386,26 +394,26 @@ statistics_layout = html.Div(
                         html.Div(id='team-graphs', style={'marginTop': '20px'})  # Div to insert the graphs
                     ]
                 ),
-                html.Div(
-                    style={
-                        'padding': '20px',
-                        'backgroundColor': '#ECF0F1',
-                        'borderRadius': '8px',
-                        'marginBottom': '20px'
-                    },
-                    children=[
-                        html.H2('Disciplinary & Distribution', style={'marginTop': '0'}),
-                        dcc.Dropdown(
-                            id='team-selector-2',
-                            options=[
-                                {'label': team, 'value': team} for team in ['Italy', 'England', 'Spain', 'Belgium', 'Austria', 'Switzerland']
-                            ],
-                            value='Italy',  # Default value
-                            style={'color': 'black'}  # Dropdown text color
-                        ),
-                        html.Div(id='team-graphs-2', style={'marginTop': '20px'})  # Div to insert the graphs
-                    ]
+        html.Div(
+            style={
+                'padding': '20px',
+                'backgroundColor': '#ECF0F1',
+                'borderRadius': '8px',
+                'marginBottom': '20px'
+            },
+            children=[
+                html.H2('Disciplinary & Distribution', style={'marginTop': '0'}),
+                dcc.Dropdown(
+                    id='team-selector-2',
+                    options=[
+                        {'label': team, 'value': team} for team in ['Italy', 'England', 'Spain', 'Belgium', 'Austria', 'Switzerland']
+                    ],
+                    value='Italy',  # Default value
+                    style={'color': 'black'}  # Dropdown text color
                 ),
+                html.Div(id='team-graphs-2', style={'marginTop': '20px'})  # Div to insert the graphs
+            ]
+        ),
                 html.Div(
                     style={
                 'marginBottom': '60px',
@@ -834,10 +842,11 @@ def update_graphs(selected_team):
     [Input('team-selector-2', 'value')]
 )
 def update_graphs_2(selected_team):
-    fig_dist, fig_discip = get_team_figures_dist_discip(selected_team)
+    fig_dist = load_figure_from_json(f'assets/{selected_team}_distribution.json')
+    fig_discip = load_figure_from_json(f'assets/{selected_team}_disciplinary.json')
     return [
-        add_graph(id='barchart-dist', figure=fig_dist),
-        add_graph(id='barchart-discip', figure=fig_discip)
+        dcc.Graph(id='barchart-dist', figure=fig_dist),
+        dcc.Graph(id='barchart-discip', figure=fig_discip)
     ]
 
 # Callback for Lineup Chart
