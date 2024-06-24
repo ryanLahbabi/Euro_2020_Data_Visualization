@@ -63,7 +63,7 @@ def generate_bracket():
         "semi finals": [2, 6],
         "final": [4]
     }
-    
+
     team_positions = {}
     # Add matches to the plot
     for match in matches:
@@ -95,7 +95,10 @@ def generate_bracket():
             text=f"{match['team1']} {match['score1']} - {match['score2']} {match['team2']}",
             hovertemplate=hovertext,
             mode='text',
-            textposition='top center'
+            textposition='top center',
+            name= "",
+            showlegend=False  
+
         ))
 
         # Add team positions for line drawing
@@ -117,7 +120,9 @@ def generate_bracket():
                 y=[y_start, y_end],
                 mode='lines',
                 line=dict(color="RoyalBlue"),
-                showlegend=False
+                showlegend=False,
+                  name=f"{match['round']} - {match['team1']} vs {match['team2']}"  # Custom name
+
             ))
 
         fig.add_layout_image(
