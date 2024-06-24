@@ -3,6 +3,7 @@ from dash import html, dcc, Input, Output
 from flask import Flask, render_template
 import json
 import plotly.graph_objs as go
+import os
 
 
 server = Flask(__name__)  # Create a Flask instance
@@ -842,8 +843,18 @@ def update_graphs(selected_team):
     [Input('team-selector-2', 'value')]
 )
 def update_graphs_2(selected_team):
-    fig_dist = load_figure_from_json(f'assets/{selected_team}_distribution.json')
-    fig_discip = load_figure_from_json(f'assets/{selected_team}_disciplinary.json')
+    # fig_dist = load_figure_from_json(f'assets/{selected_team}_distribution.json')
+    # fig_discip = load_figure_from_json(f'assets/{selected_team}_disciplinary.json')
+    file_path_dist_r = f'Euro_2020_Data_Visualization/assets/{selected_team}_distribution.json'
+    file_path_discip_r = f'Euro_2020_Data_Visualization/assets/{selected_team}_disciplinary.json'
+    file_path_dist= os.path.abspath(file_path_dist_r)
+    file_path_discip = os.path.abspath(file_path_discip_r)
+    
+    fig_dist = load_figure_from_json(f'{file_path_dist}')
+    fig_discip = load_figure_from_json(f'{file_path_discip}')
+
+
+
     return [
         dcc.Graph(id='barchart-dist', figure=fig_dist),
         dcc.Graph(id='barchart-discip', figure=fig_discip)

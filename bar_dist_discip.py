@@ -3,6 +3,7 @@ import plotly.express as px
 import environement
 import json
 import numpy as np
+import os
 
 required_stats_distribution = [
     'Passes attempted', 'Passes completed', 'Free kicks on goal ', 'Crosses attempted', 'Crosses completed',
@@ -93,7 +94,13 @@ for team_name, players in team_players.items():
     fig_distribution_dict = convert_ndarray_to_list(fig_distribution_dict)
     fig_disciplinary_dict = convert_ndarray_to_list(fig_disciplinary_dict)
 
-    with open(f'assets/{team_name}_distribution.json', 'w') as f:
+    file_path_dist_r = f'Euro_2020_Data_Visualization/assets/{team_name}_distribution.json'
+    file_path_discip_r = f'Euro_2020_Data_Visualization/assets/{team_name}_disciplinary.json'
+    file_path_dist= os.path.abspath(file_path_dist_r)
+    file_path_discip = os.path.abspath(file_path_discip_r)
+    
+
+    with open(f'f{file_path_dist}', 'w') as f:
         json.dump(fig_distribution_dict, f)
-    with open(f'assets/{team_name}_disciplinary.json', 'w') as f:
+    with open(f'f{file_path_discip}', 'w') as f:
         json.dump(fig_disciplinary_dict, f)
