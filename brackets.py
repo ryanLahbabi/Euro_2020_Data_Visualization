@@ -72,7 +72,7 @@ def generate_bracket():
         hovertext = f"{match['round'].capitalize()}<br>{match['team1']} {match['score1']} - {match['score2']} {match['team2']}"
         if "penalties" in match:
             hovertext += f"<br>Penalties: {match['penalties']}"
-        date = datetime.strptime(match['date'], "%Y-%m-%dT%H:%M:%S")
+        date = datetime.strptime(match['date'], '%Y-%m-%dT%H:%M:%S')
         hovertext += f"<br>Date: {date.strftime("%B %d, %Y, %H:%M")}"  
         hovertext += f"<br>Match Duration: {match['match duration']}"
 
