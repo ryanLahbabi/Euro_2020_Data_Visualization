@@ -1,5 +1,5 @@
 import os
-prod = True
+prod = False
 
 if(prod):
     file_path = 'Euro_2020_Data_Visualization/EURO_2020_DATA.xlsx'
