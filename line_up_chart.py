@@ -7,7 +7,6 @@ def create_lineup_chart(team_name, selected_roles):
     xls = pd.ExcelFile(file_path)
     line_ups_df = pd.read_excel(xls, 'Line-ups')
     
-    # Ensure that the 'IsPitch' column is properly compared
     is_pitch_filter = line_ups_df['IsPitch']
     
     if team_name == 'Italy':
@@ -19,20 +18,19 @@ def create_lineup_chart(team_name, selected_roles):
                        ((line_ups_df['HomeTeamName'] == team_name) | (line_ups_df['AwayTeamName'] == team_name))
         opponent = 'Italy'
     
-    # Apply both the match filter and the is_pitch filter, then filter by team
     team_data = line_ups_df[match_filter & is_pitch_filter & (line_ups_df['Country'] == team_name) & (line_ups_df['Role'].isin(selected_roles))]
     
     fig = go.Figure()
     
     roles = ['goalkeepers', 'defenders', 'midfielders', 'forwards']
     role_colors = {
-        'goalkeepers': 'rgba(255, 255, 0, 0.6)',  # Yellow with transparency
-        'defenders': 'rgba(0, 0, 255, 0.6)',  # Blue with transparency
-        'midfielders': 'rgba(0, 128, 0, 0.6)',  # Green with transparency
-        'forwards': 'rgba(255, 0, 0, 0.6)'    # Red with transparency
+        'goalkeepers': 'rgba(216, 191, 216, 0.6)',
+        'defenders': 'rgba(173, 216, 230, 0.6)',
+        'midfielders': 'rgba(144, 238, 144, 0.5)',
+        'forwards': 'rgba(255, 0, 0, 0.6)'
     }
     
-    role_positions = {role: idx*2 for idx, role in enumerate(roles, 1)}  # Increase spacing between roles
+    role_positions = {role: idx*2 for idx, role in enumerate(roles, 1)}
     max_y_pos = 0
 
     for role in roles:
@@ -40,7 +38,7 @@ def create_lineup_chart(team_name, selected_roles):
         num_players = len(role_data)
 
         if num_players > 0:
-            y_positions = [i*5 for i in range(num_players)]  # Further increase spacing between players on the y-axis
+            y_positions = [i*5 for i in range(num_players)]
             y_mid = (max(y_positions) + min(y_positions)) / 2
             y_positions = [y - y_mid for y in y_positions]
             max_y_pos = max(max_y_pos, max(y_positions, default=0))
@@ -48,16 +46,16 @@ def create_lineup_chart(team_name, selected_roles):
         
             for y_pos, (_, player) in zip(y_positions, role_data.iterrows()):
                 player_name = player['JerseyName']
-                if player['IsCaptain'] == True:  # Check if the player is the captain
+                if player['IsCaptain'] == True:
                     player_name += " (C.)"
                 fig.add_trace(go.Scatter(
                     x=[role_positions[role]],
                     y=[y_pos],
-                    text=str(int(player['JerseyNumber'])),  # Display the jersey number as an integer
+                    text=str(int(player['JerseyNumber'])),
                     mode='markers+text',
                     textposition='middle center',
                     marker=dict(
-                        size=40,  # Increase the size of the circle
+                        size=40,
                         color=role_colors[role],
                         line=dict(width=2, color='white')
                     ),
@@ -65,13 +63,16 @@ def create_lineup_chart(team_name, selected_roles):
                 ))
                 fig.add_annotation(
                     x=role_positions[role],
-                    y=y_pos - 2.5,  # Adjust to place the name below the circle
+                    y=y_pos - 2.5,
                     text=player_name,
                     showarrow=False,
                     font=dict(size=12, color='black'),
                     align='center'
                 )
 
+    fig.update_layout(
+        plot_bgcolor='green'
+    )
 
     fig.update_layout(
         title=f'{team_name} Lineup vs {opponent}', 

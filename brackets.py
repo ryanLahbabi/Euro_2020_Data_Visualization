@@ -2,27 +2,65 @@ import plotly.graph_objects as go
 import pandas as pd
 import environement
 from datetime import datetime
+from constants import (AUSTRIA_IMAGE, ITALY_IMAGE, SPAIN_IMAGE, BELGIUM_IMAGE, SWITZERLAND_IMAGE, GERMANY_IMAGE, CZE_REPUBLIC_IMAGE,
+                       DENMARK_IMAGE, WALES_IMAGE, PORTUGAL_IMAGE, FRANCE_IMAGE, CROATIA_IMAGE, NETHERLANDS_IMAGE, UKRAINE_IMAGE, SWEDEN_IMAGE, ENGLAND_IMAGE, BACKGROUND_IMAGE)
+
+FILE_PATH = environement.file_path
+
+card_data = {
+    ("FRA", "SWI"): {"yellow1": 3, "yellow2": 4, "red1": 0, "red2": 0},
+    ("CRO", "SPA"): {"yellow1": 2, "yellow2": 0, "red1": 0, "red2": 0},
+    ("BEL", "POR"): {"yellow1": 2, "yellow2": 3, "red1": 0, "red2": 0},
+    ("ITA", "AUS"): {"yellow1": 2, "yellow2": 3, "red1": 0, "red2": 0},
+    ("WAL", "DEN"): {"yellow1": 4, "yellow2": 0, "red1": 1, "red2": 0},
+    ("NET", "CZE"): {"yellow1": 2, "yellow2": 1, "red1": 1, "red2": 0},
+    ("SWE", "UKR"): {"yellow1": 2, "yellow2": 2, "red1": 1, "red2": 0},
+    ("ENG", "GER"): {"yellow1": 3, "yellow2": 2, "red1": 0, "red2": 0},
+    ("SWI", "SPA"): {"yellow1": 2, "yellow2": 1, "red1": 1, "red2": 0},
+    ("BEL", "ITA"): {"yellow1": 1, "yellow2": 2, "red1": 0, "red2": 0},
+    ("CZE", "DEN"): {"yellow1": 2, "yellow2": 0, "red1": 0, "red2": 0},
+    ("UKR", "ENG"): {"yellow1": 0, "yellow2": 0, "red1": 0, "red2": 0},
+    ("ITA", "SPA"): {"yellow1": 2, "yellow2": 1, "red1": 0, "red2": 0, "penalty1": 4, "penalty2": 2},
+    ("ENG", "DEN"): {"yellow1": 1, "yellow2": 1, "red1": 0, "red2": 0},
+    ("ITA", "ENG"): {"yellow1": 5, "yellow2": 1, "red1": 0, "red2": 0,  "penalty1": 3, "penalty2": 2},
+}
 
 
-
-
-file_path = environement.file_path
-
-
-# Define the matches and results
-# Load specific columns from the "Players stats" sheet into a dataframe
 columns = [ 'MatchMinute', 'DateandTimeCET', 'HomeTeamName', 'AwayTeamName', 'ScoreHome', 'ScoreAway', 'RoundName']
 
-sheet3_df = pd.read_excel(file_path, sheet_name='Match information', usecols=columns)
+sheet3_df = pd.read_excel(FILE_PATH, sheet_name='Match information', usecols=columns)
 
 for column in columns:
     if column not in sheet3_df.columns:
         raise KeyError(f"Column '{column}' not found in the Excel sheet")
-# Filter the stats within Sheet3 to keep only the required stats
 filtered_stats_df = sheet3_df[sheet3_df['RoundName'] != 'final tournament']
 
-# Remove duplicates if any
 filtered_stats_df = filtered_stats_df.drop_duplicates()
+
+
+def acronym_to_full_name(acronym):
+    # Dictionary mapping acronyms to full country names
+    country_names = {
+        "FRA": "France",
+        "SWI": "Switzerland",
+        "CRO": "Croatia",
+        "SPA": "Spain",
+        "BEL": "Belgium",
+        "POR": "Portugal",
+        "ITA": "Italy",
+        "AUS": "Austria",
+        "WAL": "Wales",
+        "DEN": "Denmark",
+        "NET": "Netherlands",
+        "CZE": "Czech Republic",
+        "SWE": "Sweden",
+        "UKR": "Ukraine",
+        "ENG": "England",
+        "GER": "Germany"
+    }
+
+    # Return the full country name or the original acronym if not found
+    return country_names.get(acronym, acronym)
 
 
 def generate_bracket():
@@ -41,14 +79,9 @@ def generate_bracket():
     
 
 
-    # Create the plot
     fig = go.Figure()
 
-    # Path to the directory containing flag images
-    flag_dir = "/path/to/flag_images/"
-    background_image = './euro_background.png'
 
-    # Define the coordinates for the matches
     coordinates = {
         "eighth finals": 1,
         "quarter finals": 2,
@@ -56,25 +89,38 @@ def generate_bracket():
         "final": 4
     }
 
-    # Assign y coordinates to each match manually
     y_coords = {
-        "eighth finals": [6, 4, 5, 3, 2, 1, 7, 8],  # Swapped positions of ITA-AUS and NET-CZE
+        "eighth finals": [6, 4, 5, 3, 2, 1, 7, 8],
         "quarter finals": [1, 3, 5, 7],
         "semi finals": [2, 6],
         "final": [4]
     }
 
+
+
+
+
     team_positions = {}
-    # Add matches to the plot
+
     for match in matches:
         x = coordinates[match["round"]]
         y = y_coords[match["round"]].pop(0)
-        hovertext = f"{match['round'].capitalize()}<br>{match['team1']} {match['score1']} - {match['score2']} {match['team2']}"
+        hovertext = f"{match['round'].capitalize()}<br>{acronym_to_full_name(match['team1'])} {match['score1']} - {match['score2']} {acronym_to_full_name(match['team2'])}"
         if "penalties" in match:
             hovertext += f"<br>Penalties: {match['penalties']}"
         date = datetime.strptime(match['date'], '%Y-%m-%dT%H:%M:%S')
-        hovertext += f"<br>Date: {date.strftime('%B %d, %Y, %H:%M')}"  
+        hovertext += f"<br>Date: {date.strftime('%B %d, %Y, %H:%M')}"
         hovertext += f"<br>Match Duration: {match['match duration']}"
+        hovertext += (f"<br>Yellow Cards ({match['team1']}): {card_data[(match['team1'], match['team2'])]['yellow1']}"
+                      f" | Yellow Cards ({match['team2']}): {card_data[(match['team1'], match['team2'])]['yellow2']}")
+        hovertext += (f"<br>Red Cards ({match['team1']}): {card_data[(match['team1'], match['team2'])]['red1']}"
+                      f" | Red Cards ({match['team2']}): {card_data[(match['team1'], match['team2'])]['red2']}")
+
+        if "penalty1" in card_data.get((match['team1'], match['team2']), {}):
+            hovertext += (f"<br>Penalties ({match['team1']}): {card_data[(match['team1'], match['team2'])]['penalty1']}"
+                          f"<br>Penalties ({match['team2']}): {card_data[(match['team1'], match['team2'])]['penalty2']}")
+
+
 
 
 
@@ -87,7 +133,24 @@ def generate_bracket():
             line=dict(color="RoyalBlue"),
             fillcolor="LightSkyBlue",
             opacity=0.5,
-              # Vous pouvez ajuster ce nombre entre 0 (transparent) et 1 (opaque)
+        )
+
+        fig.add_trace(go.Scatter(
+            x=[x],
+            y=[y],
+            text=hovertext,
+            hoverinfo="text",
+            mode='markers',
+            marker=dict(
+                size=40,
+                opacity=0
+            ),
+            showlegend=False
+        ))
+
+        fig.update_layout(
+            xaxis_showgrid=False,
+            yaxis_showgrid=False,
         )
 
         fig.add_trace(go.Scatter(
@@ -98,11 +161,10 @@ def generate_bracket():
             mode='text',
             textposition='top center',
             name= "",
-            showlegend=False  
+            showlegend=False,
+        )
+        )
 
-        ))
-
-        # Add team positions for line drawing
         if match["team1"] not in team_positions:
             team_positions[match["team1"]] = []
         if match["team2"] not in team_positions:
@@ -111,7 +173,6 @@ def generate_bracket():
         team_positions[match["team1"]].append((x, y))
         team_positions[match["team2"]].append((x, y))
 
-    # Add lines between matches to show the progression of teams
     for team, positions in team_positions.items():
         for i in range(len(positions) - 1):
             x_start, y_start = positions[i]
@@ -122,7 +183,7 @@ def generate_bracket():
                 mode='lines',
                 line=dict(color="RoyalBlue"),
                 showlegend=False,
-                  name=f"{match['round']} - {match['team1']} vs {match['team2']}"  # Custom name
+                  name=f"{match['round']} - {match['team1']} vs {match['team2']}"
 
             ))
 
@@ -152,21 +213,22 @@ def generate_bracket():
             )
         )
 
-    # Add background image
     fig.add_layout_image(
         dict(
-            source=background_image,
+            source= BACKGROUND_IMAGE,
             xref="paper",
             yref="paper",
             x=0,
             y=1,
             sizex=1,
-            sizey=1,
+            sizey=1.4,
             xanchor="left",
             yanchor="top",
-            layer="above"
+            layer="below",
+            opacity=0.3,
         )
     )
+
 
     fig.update_layout(
         title="Tournament Bracket",
@@ -183,9 +245,261 @@ def generate_bracket():
             dtick=1,
             range=[0.5, 8.5]
         ),
-        showlegend=False
+        showlegend=False,
     )
+    '''
+     Following code is to declare the flags and adjust their position
+    '''
+    # Round of 16
+    fig.add_layout_image(
+        dict(
+            source=SWEDEN_IMAGE,
+            x=0.015, y=0.95,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+
+    fig.add_layout_image(
+        dict(
+            source=UKRAINE_IMAGE,
+            x=0.1, y=0.95,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=ENGLAND_IMAGE,
+            x=0.015, y=0.83,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=GERMANY_IMAGE,
+            x=0.1, y=0.83,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=WALES_IMAGE,
+            x=0.015, y=0.71,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=DENMARK_IMAGE,
+            x=0.1, y=0.71,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=NETHERLANDS_IMAGE,
+            x=0.015, y=0.58,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=CZE_REPUBLIC_IMAGE,
+            x=0.1, y=0.58,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=ITALY_IMAGE,
+            x=0.015, y=0.46,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=AUSTRIA_IMAGE,
+            x=0.1, y=0.46,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=BELGIUM_IMAGE,
+            x=0.015, y=0.33,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=PORTUGAL_IMAGE,
+            x=0.1, y=0.33,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=SPAIN_IMAGE,
+            x=0.1, y=0.21,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=CROATIA_IMAGE,
+            x=0.015, y=0.21,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=FRANCE_IMAGE,
+            x=0.015, y=0.08,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=SWITZERLAND_IMAGE,
+            x=0.1, y=0.08,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+
+
+    # Quarter-Finals
+    fig.add_layout_image(
+        dict(
+            source=UKRAINE_IMAGE,
+            x=0.3, y=0.83,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=ENGLAND_IMAGE,
+            x=0.39, y=0.83,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=CZE_REPUBLIC_IMAGE,
+            x=0.3, y=0.58,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=DENMARK_IMAGE,
+            x=0.39, y=0.58,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=BELGIUM_IMAGE,
+            x=0.31, y=0.33,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=ITALY_IMAGE,
+            x=0.39, y=0.33,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+    fig.add_layout_image(
+        dict(
+            source=SWITZERLAND_IMAGE,
+            x=0.31, y=0.08,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=SPAIN_IMAGE,
+            x=0.39, y=0.08,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    # Semi-Finals
+
+
+    fig.add_layout_image(
+        dict(
+            source=DENMARK_IMAGE,
+            x=0.68, y=0.71,
+            sizex=0.02, sizey=0.02,
+        ),
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=ENGLAND_IMAGE,
+            x=0.59, y=0.71,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=ITALY_IMAGE,
+            x=0.59, y=0.21,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=SPAIN_IMAGE,
+            x=0.68, y=0.21,
+            sizex=0.02, sizey=0.7,
+        )
+    )
+
+    # Final
+
+    fig.add_layout_image(
+        dict(
+            source=ITALY_IMAGE,
+            x=0.88, y=0.46,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+    fig.add_layout_image(
+        dict(
+            source=ENGLAND_IMAGE,
+            x=0.97, y=0.46,
+            sizex=0.02, sizey=0.02,
+        )
+    )
+
+
+
     return fig
 
-fig = generate_bracket()
-fig.show()
