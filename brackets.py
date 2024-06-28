@@ -220,7 +220,7 @@ def generate_bracket():
             xref="paper",
             yref="paper",
             x=0,
-            y=1.6,
+            y=1.4,
             sizex=1,
             sizey=1.4,
             xanchor="left",
