@@ -142,7 +142,7 @@ def generate_bracket():
             hoverinfo="text",
             mode='markers',
             marker=dict(
-                size=40,
+                size=60,
                 opacity=0
             ),
             showlegend=False
@@ -183,7 +183,8 @@ def generate_bracket():
                 mode='lines',
                 line=dict(color="RoyalBlue"),
                 showlegend=False,
-                  name=f"{match['round']} - {match['team1']} vs {match['team2']}"
+                name=f"{match['round']} - {match['team1']} vs {match['team2']}",
+                hoverinfo='none'  # Disable hover for the lines
 
             ))
 
@@ -219,7 +220,7 @@ def generate_bracket():
             xref="paper",
             yref="paper",
             x=0,
-            y=1,
+            y=1.6,
             sizex=1,
             sizey=1.4,
             xanchor="left",
