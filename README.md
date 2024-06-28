@@ -29,3 +29,9 @@ http://ryanlahbabi.pythonanywhere.com
 The user runs their Flask application from a file named server.py, not app.py.
 The project includes various visualization techniques such as bracket charts, line-up charts, stacked-bar charts, radar charts, and violin plots.
 Challenges faced include data complexity, technical limitations, user interface design, and time constraints.
+
+
+## Acknowledgment
+* Hellen Vasques 
+* Pr. Thomas Hurtut
+* Tarik Agday 
