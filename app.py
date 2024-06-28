@@ -4,6 +4,8 @@ from flask import Flask, render_template
 import json
 import plotly.graph_objs as go
 import os
+from brackets import acronym_to_full_name
+
 
 
 server = Flask(__name__)  # Create a Flask instance
@@ -238,29 +240,36 @@ home_layout = html.Div(
             'marginTop': '10px',
             'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'
         },
-        children=[
-            html.Div(
-                style={
-                    'backgroundColor': '#2980B9',  
-                    'font-size': '1.5em',
-                    'borderRadius': '8px',
-                    'padding': '15px',
-                    'color': 'white',
-                    'marginBottom': '10px',
-                    'textAlign': 'center',
-                    'fontWeight': 'bold',
-                    'font-family': 'Montserrat, sans-serif'
-                },
-                children=[
-                    html.H2('Tournament Bracket', style={'margin': '0'})
-                ]
-            ),
-            dcc.Graph(
-                id='bracket-graph',
-                figure= brackets.generate_bracket(),  # Call the function to generate the bracket figure
-                style={'marginTop': '0', 'height': '1000px' }
-            )
-        ]
+            children=[
+                html.Div(
+                    style={
+                        'backgroundColor': '#2980B9',  
+                        'font-size': '1.5em',
+                        'borderRadius': '8px',
+                        'padding': '15px',
+                        'color': 'white',
+                        'marginBottom': '10px',
+                        'textAlign': 'center',
+                        'fontWeight': 'bold',
+                        'font-family': 'Montserrat, sans-serif'
+                    },
+                    children=[
+                        html.H2('Tournament Bracket', style={'margin': '0'})
+                    ]
+                ),
+                dcc.Dropdown(
+                    id='team-selector',
+                    options=[
+                        {'label': acronym_to_full_name(team), 'value': team} for team in ['ITA', 'ENG', 'SPA', 'BEL', 'AUT', 'SUI', 'GER', 'CZE', 'DEN', 'WAL', 'POR', 'FRA', 'CRO', 'NED', 'UKR', 'SWE']
+                    ],
+                    placeholder="Select a team",
+                    style={'width': '50%', 'marginBottom': '20px'}
+                ),
+                dcc.Graph(
+                    id='bracket-graph',
+                    style={'marginTop': '0', 'height': '1000px' }
+                )
+            ]
     )
 ]
 )
@@ -860,6 +869,13 @@ def update_graphs_2(selected_team):
 def update_lineup_chart(selected_team, selected_roles):
     fig_lineup = create_lineup_chart(selected_team, selected_roles)
     return add_graph(id='lineup-chart', figure=fig_lineup)
+
+@app.callback(
+    Output('bracket-graph', 'figure'),
+    Input('team-selector', 'value')
+)
+def update_bracket(selected_team):
+    return brackets.generate_bracket(selected_team)
 
 @server.route('/index')
 def home():

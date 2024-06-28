@@ -63,7 +63,7 @@ def acronym_to_full_name(acronym):
     return country_names.get(acronym, acronym)
 
 
-def generate_bracket():
+def generate_bracket(selected_team=None):
     matches = []
     for _, row in filtered_stats_df.iterrows():
         match = {
@@ -181,15 +181,17 @@ def generate_bracket():
         for i in range(len(positions) - 1):
             x_start, y_start = positions[i]
             x_end, y_end = positions[i + 1]
+            line_color = "RoyalBlue"
+            if selected_team and team == selected_team:
+                line_color = "red"
             fig.add_trace(go.Scatter(
                 x=[x_start + 0.2, x_end - 0.2],
                 y=[y_start, y_end],
                 mode='lines',
-                line=dict(color="RoyalBlue"),
+                line=dict(color=line_color),
                 showlegend=False,
                 name=f"{match['round']} - {match['team1']} vs {match['team2']}",
                 hoverinfo='none'  # Disable hover for the lines
-
             ))
 
         fig.add_layout_image(
