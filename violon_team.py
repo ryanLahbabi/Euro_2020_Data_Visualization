@@ -31,25 +31,12 @@ filtered_stats_df = sheet3_df[sheet3_df['StatsName'].isin(required_stats)]
 # Remove duplicates if any
 filtered_stats_df = filtered_stats_df.drop_duplicates()
 
-# Specify the countries you want to include
+# Specify the countries we want to include
 required_countries = ['Italy', 'England']
 
-# Filter the stats to keep only the required countries
+# Filtering the stats to keep only the required countries
 filtered_stats_df = filtered_stats_df[filtered_stats_df['HomeTeamName'].isin(required_countries)]
 
-# # Display the filtered dataframe
-# print('-------------------------------------------')
-# print('Filtered part:')
-#
-# # Display the filtered dataframe
-# print(filtered_stats_df)
-
-
-
-## Display the filtered dataframe
-# print('-------------------------------------------')
-# print('Filtered part:')
-# print(filtered_stats_df)
 
 # Convert Played Time to total minutes
 def convert_to_minutes(time_obj):
@@ -71,18 +58,6 @@ final_df = pivot_df[required_columns]
 # Rename columns
 final_df.columns = ['HomeTeamName', 'PlayerSurname'] + required_stats
 
-# Display the final DataFrame
-#print('Data after selection of the required columns', final_df)
-
-
-# final_df2 = final_df.groupby('PlayerSurname')[['Total Attempts', 'Goals scored in open play', 'Goals on set pieces', 'Played Time']].sum().reset_index()
-
-# print('Data after organization by surname', final_df2)
-
-# final_df2 = pd.melt(final_df2, id_vars=['PlayerSurname'], var_name='Additional Statistics').copy()
-# final_df3 = final_df2[final_df2['PlayerSurname'].isin(['Bellotti', 'Barella', 'Jorginho', 'Insigne', 'Immobile', 'Bernardeschi', 'Verratti', 'Bonucci', 'Chiesa', 'Acerbi'])]
-
-# print('Data after organization by surname', final_df3)
 
 def draw_figure(df, column):
     '''
@@ -117,11 +92,10 @@ def prep_data_violin():
             A pandas dataframe containing the preprocessed data.
     '''
     
-    # Filter out unnecessary columns
+    # Filtering out unnecessary columns
     required_columns = ['HomeTeamName', 'PlayerSurname'] + required_stats
     final_df = pivot_df[required_columns]
 
-    # Rename columns
     final_df.columns = ['HomeTeamName', 'PlayerSurname'] + required_stats
 
     """  # Display the final DataFrame

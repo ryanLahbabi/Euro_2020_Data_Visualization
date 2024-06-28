@@ -33,7 +33,6 @@ def load_figure_from_json(file_path):
 
 
 def get_team_figures_off_def(team_name):
-    # Vous devez adapter vos fonctions `get_fig` pour qu'elles acceptent un nom d'équipe.
     fig_offense, fig_defense = bar_chart_off_def.get_fig(team_name)
     return fig_offense, fig_defense
 
@@ -80,13 +79,13 @@ home_layout = html.Div(
     style={
         'font-family': 'Roboto, sans-serif',
         'color': '#333333',
-        'backgroundColor': '#F5F5F5'  # Light grey background for a modern look
+        'backgroundColor': '#F5F5F5'  
     },
     children=[
         # Header Section
         html.Div(
             style={
-                'backgroundColor': '#2C3E50',  # Dark grey background for contrast
+                'backgroundColor': '#2C3E50',
                 'padding': '10px 20px',
                 'display': 'flex',
                 'justifyContent': 'space-between',
@@ -180,7 +179,7 @@ home_layout = html.Div(
         html.Div(
             style={
                 'padding': '20px',
-                'backgroundColor': '#ECF0F1',  # Light grey for modern look
+                'backgroundColor': '#ECF0F1',  
                 'borderRadius': '12px',
                 'marginTop': '20px',
                 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'
@@ -188,7 +187,7 @@ home_layout = html.Div(
             children=[
                 html.Div(
                     style={
-                        'backgroundColor': '#2980B9',  # Light blue for contrast
+                        'backgroundColor': '#2980B9', 
                         'font-size': '1.5em',
                         'borderRadius': '8px',
                         'padding': '15px',
@@ -234,7 +233,7 @@ home_layout = html.Div(
         html.Div(
         style={
             'padding': '20px',
-            'backgroundColor': '#ECF0F1',  # Light grey for modern look
+            'backgroundColor': '#ECF0F1', 
             'borderRadius': '12px',
             'marginTop': '10px',
             'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'
@@ -242,7 +241,7 @@ home_layout = html.Div(
         children=[
             html.Div(
                 style={
-                    'backgroundColor': '#2980B9',  # Light blue for contrast
+                    'backgroundColor': '#2980B9',  
                     'font-size': '1.5em',
                     'borderRadius': '8px',
                     'padding': '15px',
@@ -271,19 +270,19 @@ statistics_layout = html.Div(
     style={
         'font-family': 'Roboto, sans-serif',
         'color': '#333333',
-        'backgroundColor': '#F5F5F5'  # Light grey background for a modern look
+        'backgroundColor': '#F5F5F5'  
     },
     children=[
         html.Div(
             style={
-                'backgroundColor': '#2C3E50',  # Dark grey background for contrast
+                'backgroundColor': '#2C3E50', 
                 'padding': '10px 20px',
                 'display': 'flex',
                 'justifyContent': 'space-between',
                 'alignItems': 'center',
                 'borderRadius': '12px',
                 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)',
-                'position': 'relative'  # Necessary for the hover effect
+                'position': 'relative'  
             },
             children=[
                 html.H1(
@@ -371,9 +370,7 @@ statistics_layout = html.Div(
                             "percentage of the metric. Hence, we can easily identify where weaknesses and strengths lie.",
                             style={'lineHeight': '1.6', 'textAlign': 'justify'}
                         ),
-                        # Uncomment these lines if you want to include example graphs
-                        # add_graph(id='barchart-defense_italy', figure=fig_defense_Italy),
-                        # add_graph(id='barchart-offense_italy', figure=fig_offense_Italy),
+         
                     ]
                 ),
                 html.Div(
@@ -390,7 +387,7 @@ statistics_layout = html.Div(
                                 {'label': team, 'value': team} for team in ['Italy', 'England', 'Spain', 'Belgium', 'Austria', 'Switzerland']
                             ],
                             value='Italy',  # Default value
-                            style={'color': 'black'}  # Dropdown text color
+                            style={'color': 'black'}  
                         ),
                         html.Div(id='team-graphs', style={'marginTop': '20px'})  # Div to insert the graphs
                     ]
@@ -410,15 +407,15 @@ statistics_layout = html.Div(
                         {'label': team, 'value': team} for team in ['Italy', 'England', 'Spain', 'Belgium', 'Austria', 'Switzerland']
                     ],
                     value='Italy',  # Default value
-                    style={'color': 'black'}  # Dropdown text color
+                    style={'color': 'black'}  
                 ),
-                html.Div(id='team-graphs-2', style={'marginTop': '20px'})  # Div to insert the graphs
+                html.Div(id='team-graphs-2', style={'marginTop': '20px'}) 
             ]
         ),
                 html.Div(
                     style={
                 'marginBottom': '60px',
-                'backgroundColor': '#333333',  # Dark background color
+                'backgroundColor': '#333333',  
                 'borderRadius': '8px',
                 'padding': '20px',
                 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'
@@ -428,7 +425,7 @@ statistics_layout = html.Div(
                         html.Div(
                             style={
                 'marginBottom': '60px',
-                'backgroundColor': '#333333',  # Dark background color
+                'backgroundColor': '#333333',  
                 'borderRadius': '8px',
                 'padding': '20px',
                 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'
@@ -491,10 +488,10 @@ statistics_layout = html.Div(
                 html.Div(
             style={
                 'marginBottom': '60px',
-                'backgroundColor': '#333333',  # Dark background color
+                'backgroundColor': '#333333',  
                 'borderRadius': '8px',
                 'padding': '20px',
-                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'  # Soft shadow for depth
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'  
             },
             children=[
                 html.H2('Defensive Team Analysis', style={'color': 'white', 'marginBottom': '20px'}),
@@ -544,10 +541,10 @@ statistics_layout = html.Div(
         html.Div(
             style={
                 'marginBottom': '60px',
-                'backgroundColor': '#333333',  # Dark background color
+                'backgroundColor': '#333333',  
                 'borderRadius': '8px',
                 'padding': '20px',
-                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'  # Soft shadow for depth
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'  
             },
             children=[
                 html.H2('Distribution Team Analysis', style={'color': 'white', 'marginBottom': '20px'}),
@@ -605,10 +602,10 @@ statistics_layout = html.Div(
         html.Div(
             style={
                 'marginBottom': '60px',
-                'backgroundColor': '#333333',  # Dark background color
+                'backgroundColor': '#333333',  
                 'borderRadius': '8px',
                 'padding': '20px',
-                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'  # Soft shadow for depth
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'  
             },
             children=[
                 html.H2('Disciplinary Team Analysis', style={'color': 'white', 'marginBottom': '20px'}),
@@ -661,10 +658,10 @@ statistics_layout = html.Div(
         html.Div(
             style={  
                 'marginBottom': '60px',
-                'backgroundColor': '#333333',  # Dark background color
+                'backgroundColor': '#333333',  
                 'borderRadius': '8px',
                 'padding': '20px',
-                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'  # Soft shadow for depth
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'  
                 }, 
             children=[
                 html.H2('Goals Team Performance', style={'color': 'white', 'fontSize': '2em', 'marginBottom': '20px'}),
@@ -726,10 +723,10 @@ statistics_layout = html.Div(
         html.Div(
             style={
                 'marginBottom': '60px',
-                'backgroundColor': '#333333',  # Dark background color
+                'backgroundColor': '#333333',  
                 'borderRadius': '8px',
                 'padding': '20px',
-                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'  # Soft shadow for depth
+                'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'  
                 }, 
             children=[
                 html.H2('Goalkeeping Team Performance', style={'color': 'white', 'fontSize': '2em', 'marginBottom': '20px'}),
@@ -784,7 +781,7 @@ statistics_layout = html.Div(
         ),
         html.Div(style={
                 'marginBottom': '60px',
-                'backgroundColor': '#333333',  # Dark background color
+                'backgroundColor': '#333333',  
                 'borderRadius': '8px',
                 'padding': '20px',
                 'boxShadow': '0 4px 8px rgba(0, 0, 0, 0.1)'}, children=[
@@ -839,8 +836,7 @@ def update_graphs(selected_team):
     [Input('team-selector-2', 'value')]
 )
 def update_graphs_2(selected_team):
-    # fig_dist = load_figure_from_json(f'assets/{selected_team}_distribution.json')
-    # fig_discip = load_figure_from_json(f'assets/{selected_team}_disciplinary.json')
+
     file_path_dist_r = f'Euro_2020_Data_Visualization/assets/{selected_team}_distribution.json'
     file_path_discip_r = f'Euro_2020_Data_Visualization/assets/{selected_team}_disciplinary.json'
     file_path_dist= os.path.abspath(file_path_dist_r)

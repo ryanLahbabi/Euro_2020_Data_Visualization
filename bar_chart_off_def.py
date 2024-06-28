@@ -27,7 +27,7 @@ filtered_stats_df = sheet3_df[sheet3_df['StatsName'].isin(required_stats)]
 # Remove duplicates if any
 filtered_stats_df = filtered_stats_df.drop_duplicates()
 
-# Specify the countries you want to include
+# Specify the countries we want to include
 required_countries = ['Austria', 'Belgium', 'England', 'Italy', 'Spain', 'Switzerland' ]
 
 # Filter the stats to keep only the required countries
@@ -39,7 +39,7 @@ pivot_df = filtered_stats_df.pivot(index=['MatchID', 'HomeTeamName', 'AwayTeamNa
                                    values='Value').reset_index().fillna(0)
 
 
-# Filter out unnecessary columns
+# Filtering out unnecessary columns
 required_columns = ['MatchID', 'HomeTeamName', 'AwayTeamName', 'PlayerSurname', 'PlayedTime'] + required_stats
 final_df = pivot_df[required_columns]
 
@@ -140,13 +140,13 @@ def prep_defense_data(df, team_name):
     df_def = pd.melt(df_defense[['PlayerSurname', 'Recovered balls', "Tackles", 'Clearances', 'Blocks']],
                      id_vars=['PlayerSurname'], var_name='Defensive Actions', value_name='Value')
 
-    # Calculer les totaux par action défensive
+    # Calculate total per defensive action
     df_totals = df_def.groupby(['PlayerSurname', 'Defensive Actions'])['Value'].sum().reset_index()
 
-    # Calculer les pourcentages
+    # Calculate percentages for each defensive action per player
     df_totals['Percentage'] = df_totals.groupby('PlayerSurname')['Value'].transform(lambda x: (x / x.sum()) * 100).round(1)
 
-    # Fusionner les pourcentages dans le DataFrame d'origine
+    # Merge the percentages back to the main DataFrame
     df_def = df_def.merge(df_totals[['PlayerSurname', 'Defensive Actions', 'Percentage']],
                           on=['PlayerSurname', 'Defensive Actions'], how='left')
 
@@ -171,9 +171,9 @@ def create_offense_plot(df, team_name):
                  text_auto=True)
 
     fig.update_traces(
-        textfont_size=11,  # Set a default font size
-        textangle=0,  # Text angle
-        cliponaxis=False,  # Ensure text is not clipped
+        textfont_size=11,  
+        textangle=0,  
+        cliponaxis=False,  
         hovertemplate="<b>Player:</b> %{x}<br><b>%{customdata[1]} Completed: </b>%{y} (%{customdata[0]}%)<extra></extra>")
     fig.update_layout(yaxis={'title': "Offensive Actions"},
                       height=600,
@@ -198,9 +198,9 @@ def create_defense_plot(df, team_name):
                  text_auto=True)
 
     fig.update_traces(
-        textfont_size=9,  # Set a default font size
-        textangle=0,  # Text angle
-        cliponaxis=False,  # Ensure text is not clipped
+        textfont_size=9,  
+        textangle=0,  
+        cliponaxis=False,  
         hovertemplate="<b>Player:</b> %{x}<br><b>%{customdata[1]} Completed: </b>%{y} (%{customdata[0]}%)<extra></extra>")
     fig.update_layout(yaxis={'title': "Defensive Actions"},
                       height=660,

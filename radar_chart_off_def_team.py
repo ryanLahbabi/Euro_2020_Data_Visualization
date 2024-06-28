@@ -10,7 +10,7 @@ file_path = environement.file_path
 # Variable definitions
 
 
-# Specify the countries you want to include
+# Specify the countries we want to include
 teams = ['Italy', 'England', 'Spain', 'Belgium', 'Austria', 'Switzerland']
 
 
@@ -44,7 +44,7 @@ pivot_df = filtered_stats_df.pivot_table(index=['MatchID', 'TeamName'],
                                          aggfunc='sum').reset_index().fillna(0)  # Handle multiple entries by summing them
 
 
-# Filter out unnecessary columns
+# Filtering out unnecessary columns
 required_columns = ['MatchID', 'TeamName'] + required_stats
 final_df = pivot_df[required_columns]
 

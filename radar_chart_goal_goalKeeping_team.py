@@ -12,7 +12,7 @@ file_path = environement.file_path
 # Variable definitions
 
 
-# Specify the countries you want to include
+# Specifying the countries we want to include
 teams = ['Italy', 'England', 'Spain', 'Belgium', 'Austria', 'Switzerland']
 
 

@@ -12,7 +12,7 @@ file_path = environement.file_path
 # Variable definitions
 
 
-# Specify the countries you want to include
+# Specify the countries we want to include
 teams = ['Italy', 'England', 'Spain', 'Belgium', 'Austria', 'Switzerland']
 
 
@@ -20,7 +20,7 @@ teams = ['Italy', 'England', 'Spain', 'Belgium', 'Austria', 'Switzerland']
 columns = ['MatchID','TeamName', 'StatsName', 'Value']
 sheet4_df = pd.read_excel(file_path, sheet_name='Match Stats', usecols=columns)
 
-# Specify the required stats
+# Specifying the required stats
 
 
 required_stats = [
@@ -47,7 +47,7 @@ pivot_df = filtered_stats_df.pivot(index=['MatchID','TeamName'],
 required_columns = ['MatchID', 'TeamName'] + required_stats
 final_df = pivot_df[required_columns]
 
-# Rename columns
+# Renaming columns
 final_df.columns = ['MatchID', 'TeamName'] + required_stats
 
 

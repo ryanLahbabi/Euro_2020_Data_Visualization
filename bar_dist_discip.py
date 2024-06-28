@@ -90,7 +90,7 @@ for team_name, players in team_players.items():
     fig_distribution_dict = fig_distribution.to_dict()
     fig_disciplinary_dict = fig_disciplinary.to_dict()
 
-    # Convert any numpy ndarrays to lists
+    # Convert numpy ndarrays to lists
     fig_distribution_dict = convert_ndarray_to_list(fig_distribution_dict)
     fig_disciplinary_dict = convert_ndarray_to_list(fig_disciplinary_dict)
 
