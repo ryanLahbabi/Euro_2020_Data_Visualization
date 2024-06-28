@@ -26,7 +26,7 @@ def create_lineup_chart(team_name, selected_roles):
     role_colors = {
         'goalkeepers': 'rgba(216, 191, 216, 0.6)',
         'defenders': 'rgba(173, 216, 230, 0.6)',
-        'midfielders': 'rgba(144, 238, 144, 0.5)',
+        'midfielders': 'rgba(0, 100, 0, 0.8)',
         'forwards': 'rgba(255, 0, 0, 0.6)'
     }
     
@@ -64,14 +64,14 @@ def create_lineup_chart(team_name, selected_roles):
                 fig.add_annotation(
                     x=role_positions[role],
                     y=y_pos - 2.5,
-                    text=player_name,
+                    text=f'<b>{player_name}</b>',
                     showarrow=False,
                     font=dict(size=12, color='black'),
                     align='center'
                 )
 
     fig.update_layout(
-        plot_bgcolor='green'
+        plot_bgcolor='lightgreen',
     )
 
     fig.update_layout(
@@ -88,7 +88,7 @@ def create_lineup_chart(team_name, selected_roles):
             sizex=max(role_positions.values()) + 2,
             sizey=(max_y_pos + 5) * 2,
             sizing="stretch",
-            opacity=0.5,
+            opacity=0.2,
             layer="below"
         )]
     )
