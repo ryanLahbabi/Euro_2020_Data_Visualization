@@ -95,7 +95,7 @@ def prep_offense_data(df, team_name):
 
     # Calculate percentages for each offensive type per player
     total_values = df_melted.groupby('PlayerSurname')['Value'].transform('sum')
-    df_melted['Percentage'] = (df_melted['Value'] / total_values) * 100
+    df_melted['Percentage'] = ((df_melted['Value'] / total_values) * 100).round(1)
 
     return df_melted
 
@@ -144,7 +144,7 @@ def prep_defense_data(df, team_name):
     df_totals = df_def.groupby(['PlayerSurname', 'Defensive Actions'])['Value'].sum().reset_index()
 
     # Calculer les pourcentages
-    df_totals['Percentage'] = df_totals.groupby('PlayerSurname')['Value'].transform(lambda x: (x / x.sum()) * 100)
+    df_totals['Percentage'] = df_totals.groupby('PlayerSurname')['Value'].transform(lambda x: (x / x.sum()) * 100).round(1)
 
     # Fusionner les pourcentages dans le DataFrame d'origine
     df_def = df_def.merge(df_totals[['PlayerSurname', 'Defensive Actions', 'Percentage']],
@@ -171,6 +171,9 @@ def create_offense_plot(df, team_name):
                  text_auto=True)
 
     fig.update_traces(
+        textfont_size=11,  # Set a default font size
+        textangle=0,  # Text angle
+        cliponaxis=False,  # Ensure text is not clipped
         hovertemplate="<b>Player:</b> %{x}<br><b>%{customdata[1]} Completed: </b>%{y} (%{customdata[0]}%)<extra></extra>")
     fig.update_layout(yaxis={'title': "Offensive Actions"},
                       height=600,
@@ -195,6 +198,9 @@ def create_defense_plot(df, team_name):
                  text_auto=True)
 
     fig.update_traces(
+        textfont_size=9,  # Set a default font size
+        textangle=0,  # Text angle
+        cliponaxis=False,  # Ensure text is not clipped
         hovertemplate="<b>Player:</b> %{x}<br><b>%{customdata[1]} Completed: </b>%{y} (%{customdata[0]}%)<extra></extra>")
     fig.update_layout(yaxis={'title': "Defensive Actions"},
                       height=660,

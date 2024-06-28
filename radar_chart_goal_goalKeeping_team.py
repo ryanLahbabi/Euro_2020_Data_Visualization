@@ -164,12 +164,14 @@ def get_radar_figure(team_data, categories, type):
             orientation='v',
             yanchor='top',
             y=(1 if type == 'goals' else 1.26),
-            xanchor='right',
-            x=(1 if type == 'goals' else 1.7),
+            xanchor='left',
+            x=(1.05 if type == 'goals' else 1.7),
             font=dict(
                 size=13
             )
-        )
+        ),
+        margin=dict(r=150)  # Adjust the right margin to provide space for the legend
+
     )
 
     fig.update_polars(bgcolor='rgba(0,0,0, 0.1)')
