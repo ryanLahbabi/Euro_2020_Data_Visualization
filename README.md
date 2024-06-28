@@ -15,12 +15,12 @@ We have chosen to compare the metrics of teams from different levels of closenes
 The visualization is primarily designed for coaching purposes and for technical team staff seeking to pinpoint the limitations of their respective teams and learn from the tactics, performance, and progress of the winner (Italy) to gradually build success. The targeted application end-users will develop their future match management strategies and make informed decisions based on the knowledge and insights gained from these visualizations and their associated analyses. The resulting design application is easily accessible to the targeted public and interested audiences via a web browser on their computers. It can also be made available as a mobile app with a little design fit.
 
 ## 4. Collaborators
-Badr Amine
-Ryan Lahbabi
-Khalida Ghanem
-Yahya Badrane
-Mohamed Djeddi
-Tianjing Hu
+* Badr Amine
+* Ryan Lahbabi
+* Khalida Ghanem
+* Yahya Badrane
+* Mohamed Djeddi
+* Tianjing Hu
 
 ## 5. Website Link
 http://ryanlahbabi.pythonanywhere.com
