@@ -105,20 +105,24 @@ def generate_bracket():
     for match in matches:
         x = coordinates[match["round"]]
         y = y_coords[match["round"]].pop(0)
-        hovertext = f"{match['round'].capitalize()}<br>{acronym_to_full_name(match['team1'])} {match['score1']} - {match['score2']} {acronym_to_full_name(match['team2'])}"
-        if "penalties" in match:
-            hovertext += f"<br>Penalties: {match['penalties']}"
         date = datetime.strptime(match['date'], '%Y-%m-%dT%H:%M:%S')
-        hovertext += f"<br>Date: {date.strftime('%B %d, %Y, %H:%M')}"
-        hovertext += f"<br>Match Duration: {match['match duration']}"
-        hovertext += (f"<br>Yellow Cards ({match['team1']}): {card_data[(match['team1'], match['team2'])]['yellow1']}"
-                      f" | Yellow Cards ({match['team2']}): {card_data[(match['team1'], match['team2'])]['yellow2']}")
-        hovertext += (f"<br>Red Cards ({match['team1']}): {card_data[(match['team1'], match['team2'])]['red1']}"
-                      f" | Red Cards ({match['team2']}): {card_data[(match['team1'], match['team2'])]['red2']}")
-
+        
+        hovertext = f"""
+        <b>{match['round'].capitalize()}</b><br>
+        <b>{acronym_to_full_name(match['team1'])}</b> {match['score1']} - {match['score2']} <b>{acronym_to_full_name(match['team2'])}</b><br>
+        <b>Date:</b> {date.strftime('%B %d, %Y, %H:%M')}<br>
+        <b>Match Duration:</b> {match['match duration']}<br>
+        <b>Yellow Cards ({match['team1']}):</b> {card_data[(match['team1'], match['team2'])]['yellow1']} |
+        <b>Yellow Cards ({match['team2']}):</b> {card_data[(match['team1'], match['team2'])]['yellow2']}<br>
+        <b>Red Cards ({match['team1']}):</b> {card_data[(match['team1'], match['team2'])]['red1']} |
+        <b>Red Cards ({match['team2']}):</b> {card_data[(match['team1'], match['team2'])]['red2']}
+        """
         if "penalty1" in card_data.get((match['team1'], match['team2']), {}):
-            hovertext += (f"<br>Penalties ({match['team1']}): {card_data[(match['team1'], match['team2'])]['penalty1']}"
-                          f"<br>Penalties ({match['team2']}): {card_data[(match['team1'], match['team2'])]['penalty2']}")
+            hovertext += f"""
+            <br><b>Penalties ({match['team1']}):</b> {card_data[(match['team1'], match['team2'])]['penalty1']}<br>
+            <b>Penalties ({match['team2']}):</b> {card_data[(match['team1'], match['team2'])]['penalty2']}
+            """
+
 
 
 
