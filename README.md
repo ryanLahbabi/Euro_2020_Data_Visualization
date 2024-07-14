@@ -18,9 +18,6 @@ The visualization is primarily designed for coaching purposes and for technical 
 * Badr Amine
 * Ryan Lahbabi
 * Khalida Ghanem
-* Yahya Badrane
-* Mohamed Djeddi
-* Tianjing Hu
 
 ## 5. Website Link
 http://ryanlahbabi.pythonanywhere.com
