@@ -20,7 +20,7 @@ The visualization is primarily designed for coaching purposes and for technical 
 * Khalida Ghanem
 
 ## 5. Website Link
-http://ryanlahbabi.pythonanywhere.com
+https://euro_2020_visualization-ryanlahbabi.pythonanywhere.com
 
 ## 6. Technical Details
 The user runs their Flask application from a file named server.py, not app.py.
